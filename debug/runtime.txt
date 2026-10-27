@@ -1,0 +1,12 @@
+CharacterSelector.tsx:25 Toggle character: yixuan
+useCharacters.ts:15 toggleCharacter called with: yixuan current: []length: 0[[Prototype]]: Array(0)
+useCharacters.ts:20 New selection: ['yixuan']
+useCharacters.ts:20 New selection: ['yixuan']
+CharacterSelector.tsx:10 CharacterSelector render: {selectedCharacters: Array(1), characters: Array(2)}characters: (2) [{…}, {…}]selectedCharacters: ['yixuan'][[Prototype]]: Object
+CharacterSelector.tsx:10 CharacterSelector render: {selectedCharacters: Array(1), characters: Array(2)}characters: (2) [{…}, {…}]selectedCharacters: ['yixuan'][[Prototype]]: Object
+CharacterSelector.tsx:25 Toggle character: miyabi
+useCharacters.ts:15 toggleCharacter called with: miyabi current: ['yixuan']0: "yixuan"length: 1[[Prototype]]: Array(0)
+useCharacters.ts:20 New selection: (2) ['yixuan', 'miyabi']
+useCharacters.ts:20 New selection: (2) ['yixuan', 'miyabi']
+CharacterSelector.tsx:10 CharacterSelector render: {selectedCharacters: Array(2), characters: Array(2)}characters: (2) [{…}, {…}]selectedCharacters: (2) ['yixuan', 'miyabi'][[Prototype]]: Object
+CharacterSelector.tsx:10 CharacterSelector render: {selectedCharacters: Array(2), characters: Array(2)}characters: (2) [{…}, {…}]selectedCharacters: (2) ['yixuan', 'miyabi'][[Prototype]]: Object

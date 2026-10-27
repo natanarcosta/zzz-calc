@@ -1,0 +1,74 @@
+{
+  "classes": [
+    "Armorer",
+    "Rupture",
+    "Attack",
+    "Stun",
+    "Anomaly",
+    "Support",
+    "Defense"
+  ],
+  "elements": [
+    "Lumiflux",
+    "Wind",
+    "Physical",
+    "Fire",
+    "Ice",
+    "Electric",
+    "Ether"
+  ],
+  "expSources": {
+    "trainee": 100,
+    "official": 600,
+    "senior": 3000
+  },
+  "characterRequirements": {
+    "maxLevel": 60,
+    "totalExp": 900000,
+    "totalDennies": 3700000,
+    "seals": {
+      "basic": 4,
+      "advanced": 32,
+      "topTier": 30
+    },
+    "chips": {
+      "basic": 25,
+      "advanced": 75,
+      "specialized": 250
+    },
+    "expertChallengeMaterials": 60,
+    "bossMaterials": 9
+  },
+  "characters": [
+    {
+      "id": "miyabi",
+      "name": "Miyabi",
+      "class": "Anomaly",
+      "element": "Ice"
+    },
+    {
+      "id": "yixuan",
+      "name": "YiXuan",
+      "class": "Rupture",
+      "element": "Ether"
+    },
+    {
+      "id": "sunbringer",
+      "name": "Sunbringer",
+      "class": "Armorer",
+      "element": "Fire"
+    },
+    {
+      "id": "robin",
+      "name": "Robin",
+      "class": "Defense",
+      "element": "Ether"
+    },
+    {
+      "id": "zhao",
+      "name": "Zhao",
+      "class": "Defense",
+      "element": "Physical"
+    }
+  ]
+}
