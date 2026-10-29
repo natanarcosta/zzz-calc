@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import type { Resources, InvestigatorLogs, Seals, Chips } from '../types';
-import { localStorage, STORAGE_KEYS } from '../lib/localStorage';
+import type { Resources, Seals, Chips, WEngineExpMaterials, WEngineAscensionMaterials } from '../types';
+import { localStorage } from '../lib/localStorage';
 
-const initialResources: Resources = {
+const INITIAL_RESOURCES: Resources = {
   dennies: 0,
   investigatorLogs: {
     trainee: 0,
@@ -13,61 +13,69 @@ const initialResources: Resources = {
   chips: {},
   expertChallengeMaterials: 0,
   bossMaterials: 0,
+  hamsterCagePass: 0,
+  wEngineExpMaterials: {
+    basic: 0,
+    advanced: 0,
+    expert: 0,
+  },
+  wEngineAscensionMaterials: {},
 };
 
 export const useResources = () => {
   const [resources, setResources] = useState<Resources>(() => {
-    const saved = localStorage.get<Resources>(STORAGE_KEYS.RESOURCES);
-    return saved || initialResources;
+    const saved = localStorage.get<Resources>('resources');
+    return saved || INITIAL_RESOURCES;
   });
 
   useEffect(() => {
-    localStorage.set(STORAGE_KEYS.RESOURCES, resources);
+    localStorage.set('resources', resources);
   }, [resources]);
 
   const updateDennies = (value: number) => {
     setResources((prev) => ({ ...prev, dennies: Math.max(0, value) }));
   };
 
-  const updateInvestigatorLogs = (logs: Partial<InvestigatorLogs>) => {
+  const updateInvestigatorLogs = (type: keyof typeof resources.investigatorLogs, value: number) => {
     setResources((prev) => ({
       ...prev,
       investigatorLogs: {
         ...prev.investigatorLogs,
-        ...logs,
-        trainee: logs.trainee !== undefined ? Math.max(0, logs.trainee) : prev.investigatorLogs.trainee,
-        official: logs.official !== undefined ? Math.max(0, logs.official) : prev.investigatorLogs.official,
-        senior: logs.senior !== undefined ? Math.max(0, logs.senior) : prev.investigatorLogs.senior,
+        [type]: Math.max(0, value),
       },
     }));
   };
 
-  const updateSeals = (className: string, seals: Partial<Seals>) => {
-    setResources((prev) => ({
-      ...prev,
-      seals: {
-        ...prev.seals,
-        [className]: {
-          basic: seals.basic !== undefined ? Math.max(0, seals.basic) : (prev.seals[className]?.basic || 0),
-          advanced: seals.advanced !== undefined ? Math.max(0, seals.advanced) : (prev.seals[className]?.advanced || 0),
-          topTier: seals.topTier !== undefined ? Math.max(0, seals.topTier) : (prev.seals[className]?.topTier || 0),
+  const updateSeals = (classType: string, sealType: keyof Seals, value: number) => {
+    setResources((prev) => {
+      const classSeals = prev.seals[classType] || { basic: 0, advanced: 0, topTier: 0 };
+      return {
+        ...prev,
+        seals: {
+          ...prev.seals,
+          [classType]: {
+            ...classSeals,
+            [sealType]: Math.max(0, value),
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
-  const updateChips = (element: string, chips: Partial<Chips>) => {
-    setResources((prev) => ({
-      ...prev,
-      chips: {
-        ...prev.chips,
-        [element]: {
-          basic: chips.basic !== undefined ? Math.max(0, chips.basic) : (prev.chips[element]?.basic || 0),
-          advanced: chips.advanced !== undefined ? Math.max(0, chips.advanced) : (prev.chips[element]?.advanced || 0),
-          specialized: chips.specialized !== undefined ? Math.max(0, chips.specialized) : (prev.chips[element]?.specialized || 0),
+  const updateChips = (elementType: string, chipType: keyof Chips, value: number) => {
+    setResources((prev) => {
+      const elementChips = prev.chips[elementType] || { basic: 0, advanced: 0, specialized: 0 };
+      return {
+        ...prev,
+        chips: {
+          ...prev.chips,
+          [elementType]: {
+            ...elementChips,
+            [chipType]: Math.max(0, value),
+          },
         },
-      },
-    }));
+      };
+    });
   };
 
   const updateExpertChallengeMaterials = (value: number) => {
@@ -78,8 +86,38 @@ export const useResources = () => {
     setResources((prev) => ({ ...prev, bossMaterials: Math.max(0, value) }));
   };
 
+  const updateHamsterCagePass = (value: number) => {
+    setResources((prev) => ({ ...prev, hamsterCagePass: Math.max(0, value) }));
+  };
+
+  const updateWEngineExpMaterials = (type: keyof WEngineExpMaterials, value: number) => {
+    setResources((prev) => ({
+      ...prev,
+      wEngineExpMaterials: {
+        ...prev.wEngineExpMaterials,
+        [type]: Math.max(0, value),
+      },
+    }));
+  };
+
+  const updateWEngineAscensionMaterials = (element: string, type: keyof WEngineAscensionMaterials, value: number) => {
+    setResources((prev) => {
+      const elementMaterials = prev.wEngineAscensionMaterials[element] || { basic: 0, advanced: 0, expert: 0 };
+      return {
+        ...prev,
+        wEngineAscensionMaterials: {
+          ...prev.wEngineAscensionMaterials,
+          [element]: {
+            ...elementMaterials,
+            [type]: Math.max(0, value),
+          },
+        },
+      };
+    });
+  };
+
   const resetResources = () => {
-    setResources(initialResources);
+    setResources(INITIAL_RESOURCES);
   };
 
   return {
@@ -90,6 +128,9 @@ export const useResources = () => {
     updateChips,
     updateExpertChallengeMaterials,
     updateBossMaterials,
+    updateHamsterCagePass,
+    updateWEngineExpMaterials,
+    updateWEngineAscensionMaterials,
     resetResources,
   };
 };

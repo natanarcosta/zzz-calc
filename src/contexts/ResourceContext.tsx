@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
-import type { Resources, InvestigatorLogs, Seals, Chips } from '../types';
+import type { Resources, InvestigatorLogs, Seals, Chips, WEngineExpMaterials, WEngineAscensionMaterials } from '../types';
 import { localStorage, STORAGE_KEYS } from '../lib/localStorage';
 
 interface ResourceContextType {
@@ -11,6 +11,9 @@ interface ResourceContextType {
   updateChips: (element: string, chips: Partial<Chips>) => void;
   updateExpertChallengeMaterials: (value: number) => void;
   updateBossMaterials: (value: number) => void;
+  updateHamsterCagePass: (value: number) => void;
+  updateWEngineExpMaterials: (materials: Partial<WEngineExpMaterials>) => void;
+  updateWEngineAscensionMaterials: (element: string, materials: Partial<WEngineAscensionMaterials>) => void;
   resetResources: () => void;
 }
 
@@ -25,6 +28,13 @@ const initialResources: Resources = {
   chips: {},
   expertChallengeMaterials: 0,
   bossMaterials: 0,
+  hamsterCagePass: 0,
+  wEngineExpMaterials: {
+    basic: 0,
+    advanced: 0,
+    expert: 0,
+  },
+  wEngineAscensionMaterials: {},
 };
 
 const ResourceContext = createContext<ResourceContextType | undefined>(undefined);
@@ -32,7 +42,16 @@ const ResourceContext = createContext<ResourceContextType | undefined>(undefined
 export const ResourceProvider = ({ children }: { children: ReactNode }) => {
   const [resources, setResources] = useState<Resources>(() => {
     const saved = localStorage.get<Resources>(STORAGE_KEYS.RESOURCES);
-    return saved || initialResources;
+    if (!saved) return initialResources;
+    
+    // Migrate wEngineAscensionMaterials from element-based to class-based
+    const migrated = { ...initialResources, ...saved };
+    if (saved.wEngineAscensionMaterials) {
+      // If data exists, it might be element-based. We need to migrate it.
+      // For now, just keep it as is - the UI will handle the migration
+      migrated.wEngineAscensionMaterials = saved.wEngineAscensionMaterials;
+    }
+    return migrated;
   });
 
   useEffect(() => {
@@ -92,6 +111,35 @@ export const ResourceProvider = ({ children }: { children: ReactNode }) => {
     setResources((prev) => ({ ...prev, bossMaterials: Math.max(0, value) }));
   };
 
+  const updateHamsterCagePass = (value: number) => {
+    setResources((prev) => ({ ...prev, hamsterCagePass: Math.max(0, value) }));
+  };
+
+  const updateWEngineExpMaterials = (materials: Partial<WEngineExpMaterials>) => {
+    setResources((prev) => ({
+      ...prev,
+      wEngineExpMaterials: {
+        basic: materials.basic !== undefined ? Math.max(0, materials.basic) : (prev.wEngineExpMaterials?.basic ?? 0),
+        advanced: materials.advanced !== undefined ? Math.max(0, materials.advanced) : (prev.wEngineExpMaterials?.advanced ?? 0),
+        expert: materials.expert !== undefined ? Math.max(0, materials.expert) : (prev.wEngineExpMaterials?.expert ?? 0),
+      },
+    }));
+  };
+
+  const updateWEngineAscensionMaterials = (element: string, materials: Partial<WEngineAscensionMaterials>) => {
+    setResources((prev) => ({
+      ...prev,
+      wEngineAscensionMaterials: {
+        ...prev.wEngineAscensionMaterials,
+        [element]: {
+          basic: materials.basic !== undefined ? Math.max(0, materials.basic) : (prev.wEngineAscensionMaterials[element]?.basic || 0),
+          advanced: materials.advanced !== undefined ? Math.max(0, materials.advanced) : (prev.wEngineAscensionMaterials[element]?.advanced || 0),
+          expert: materials.expert !== undefined ? Math.max(0, materials.expert) : (prev.wEngineAscensionMaterials[element]?.expert || 0),
+        },
+      },
+    }));
+  };
+
   const resetResources = () => {
     setResources(initialResources);
   };
@@ -106,6 +154,9 @@ export const ResourceProvider = ({ children }: { children: ReactNode }) => {
         updateChips,
         updateExpertChallengeMaterials,
         updateBossMaterials,
+        updateHamsterCagePass,
+        updateWEngineExpMaterials,
+        updateWEngineAscensionMaterials,
         resetResources,
       }}
     >

@@ -32,7 +32,7 @@ const ProgressBar = ({ label, value }: { label: string; value: number }) => {
 
 export const CharacterProgressCard = ({ character, progress }: CharacterProgressCardProps) => {
   return (
-    <div className="p-4 bg-gray-900 rounded-lg border border-gray-800">
+    <div className="p-4 lg:p-5 bg-gray-900 rounded-lg border border-gray-700/90 shadow-sm shadow-black/20">
       <div className="border-b border-gray-700 pb-3">
         <h3 className="text-lg font-bold text-white">{character.name}</h3>
         <div className="flex gap-4 text-sm text-gray-400">
@@ -49,6 +49,13 @@ export const CharacterProgressCard = ({ character, progress }: CharacterProgress
         <ProgressBar label="Dennies" value={progress.dennies} />
         <ProgressBar label="Expert Challenge" value={progress.expertChallenge} />
         <ProgressBar label="Boss Materials" value={progress.bossMaterials} />
+        <ProgressBar label="Hamster Cage Pass" value={progress.hamsterCagePass} />
+        {character.hasWEngine && (
+          <>
+            <ProgressBar label="W-Engine EXP" value={progress.wEngineExp} />
+            <ProgressBar label="W-Engine Ascension" value={progress.wEngineAscension} />
+          </>
+        )}
       </div>
 
       <div className="border-t border-gray-700 pt-3 mt-3">

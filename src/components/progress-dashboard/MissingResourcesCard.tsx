@@ -1,7 +1,10 @@
 import type { MissingResources } from '../../types';
 
 interface MissingResourcesCardProps {
-  missingResources: MissingResources;
+  missingResources: MissingResources & {
+    sealsByClass?: Record<string, { basic: number; advanced: number; topTier: number }>;
+    chipsByElement?: Record<string, { basic: number; advanced: number; specialized: number }>;
+  };
 }
 
 export const MissingResourcesCard = ({ missingResources }: MissingResourcesCardProps) => {
@@ -10,12 +13,17 @@ export const MissingResourcesCard = ({ missingResources }: MissingResourcesCardP
     missingResources.dennies > 0 ||
     missingResources.expertChallenge > 0 ||
     missingResources.bossMaterials > 0 ||
+    missingResources.hamsterCagePass > 0 ||
+    missingResources.wEngineExp > 0 ||
     missingResources.seals.basic > 0 ||
     missingResources.seals.advanced > 0 ||
     missingResources.seals.topTier > 0 ||
     missingResources.chips.basic > 0 ||
     missingResources.chips.advanced > 0 ||
-    missingResources.chips.specialized > 0;
+    missingResources.chips.specialized > 0 ||
+    missingResources.wEngineAscension.basic > 0 ||
+    missingResources.wEngineAscension.advanced > 0 ||
+    missingResources.wEngineAscension.expert > 0;
 
   if (!hasMissing) {
     return (
@@ -53,26 +61,45 @@ export const MissingResourcesCard = ({ missingResources }: MissingResourcesCardP
             <span className="text-red-400 font-medium">{missingResources.bossMaterials}</span>
           </div>
         )}
+        {missingResources.hamsterCagePass > 0 && (
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-400">Hamster Cage Pass:</span>
+            <span className="text-red-400 font-medium">{missingResources.hamsterCagePass}</span>
+          </div>
+        )}
+        {missingResources.wEngineExp > 0 && (
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-400">W-Engine EXP (in Expert Materials):</span>
+            <span className="text-red-400 font-medium">{Math.ceil(missingResources.wEngineExp / 3000)} Expert Materials</span>
+          </div>
+        )}
         {(missingResources.seals.basic > 0 || missingResources.seals.advanced > 0 || missingResources.seals.topTier > 0) && (
           <div className="border-t border-gray-700 pt-3 mt-3">
             <p className="text-gray-400 text-sm mb-2">Seals:</p>
-            <div className="grid grid-cols-3 gap-2 text-sm">
-              {missingResources.seals.basic > 0 && (
-                <div className="text-center">
-                  <span className="text-gray-400 block">Basic</span>
-                  <span className="text-red-400 font-medium">{missingResources.seals.basic}</span>
-                </div>
-              )}
-              {missingResources.seals.advanced > 0 && (
-                <div className="text-center">
-                  <span className="text-gray-400 block">Advanced</span>
-                  <span className="text-red-400 font-medium">{missingResources.seals.advanced}</span>
-                </div>
-              )}
-              {missingResources.seals.topTier > 0 && (
-                <div className="text-center">
-                  <span className="text-gray-400 block">Top-Tier</span>
-                  <span className="text-red-400 font-medium">{missingResources.seals.topTier}</span>
+            <div className="space-y-2">
+              <div className="grid grid-cols-4 gap-2 text-xs">
+                <span className="text-gray-500 font-medium">Class</span>
+                <span className="text-gray-500 font-medium">Basic</span>
+                <span className="text-gray-500 font-medium">Advanced</span>
+                <span className="text-gray-500 font-medium">Top-Tier</span>
+              </div>
+              {missingResources.sealsByClass && Object.keys(missingResources.sealsByClass).length > 0 ? (
+                Object.entries(missingResources.sealsByClass).map(([className, seals]) => (
+                  (seals.basic > 0 || seals.advanced > 0 || seals.topTier > 0) && (
+                    <div key={className} className="grid grid-cols-4 gap-2 text-xs">
+                      <span className="text-gray-400">{className}</span>
+                      <span className="text-red-400">{seals.basic}</span>
+                      <span className="text-red-400">{seals.advanced}</span>
+                      <span className="text-red-400">{seals.topTier}</span>
+                    </div>
+                  )
+                ))
+              ) : (
+                <div className="grid grid-cols-4 gap-2 text-xs">
+                  <span className="text-gray-400">All Classes</span>
+                  <span className="text-red-400">{missingResources.seals.basic}</span>
+                  <span className="text-red-400">{missingResources.seals.advanced}</span>
+                  <span className="text-red-400">{missingResources.seals.topTier}</span>
                 </div>
               )}
             </div>
@@ -81,23 +108,55 @@ export const MissingResourcesCard = ({ missingResources }: MissingResourcesCardP
         {(missingResources.chips.basic > 0 || missingResources.chips.advanced > 0 || missingResources.chips.specialized > 0) && (
           <div className="border-t border-gray-700 pt-3 mt-3">
             <p className="text-gray-400 text-sm mb-2">Chips:</p>
+            <div className="space-y-2">
+              <div className="grid grid-cols-4 gap-2 text-xs">
+                <span className="text-gray-500 font-medium">Element</span>
+                <span className="text-gray-500 font-medium">Basic</span>
+                <span className="text-gray-500 font-medium">Advanced</span>
+                <span className="text-gray-500 font-medium">Specialized</span>
+              </div>
+              {missingResources.chipsByElement && Object.keys(missingResources.chipsByElement).length > 0 ? (
+                Object.entries(missingResources.chipsByElement).map(([element, chips]) => (
+                  (chips.basic > 0 || chips.advanced > 0 || chips.specialized > 0) && (
+                    <div key={element} className="grid grid-cols-4 gap-2 text-xs">
+                      <span className="text-gray-400">{element}</span>
+                      <span className="text-red-400">{chips.basic}</span>
+                      <span className="text-red-400">{chips.advanced}</span>
+                      <span className="text-red-400">{chips.specialized}</span>
+                    </div>
+                  )
+                ))
+              ) : (
+                <div className="grid grid-cols-4 gap-2 text-xs">
+                  <span className="text-gray-400">All Elements</span>
+                  <span className="text-red-400">{missingResources.chips.basic}</span>
+                  <span className="text-red-400">{missingResources.chips.advanced}</span>
+                  <span className="text-red-400">{missingResources.chips.specialized}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {(missingResources.wEngineAscension.basic > 0 || missingResources.wEngineAscension.advanced > 0 || missingResources.wEngineAscension.expert > 0) && (
+          <div className="border-t border-gray-700 pt-3 mt-3">
+            <p className="text-gray-400 text-sm mb-2">W-Engine Ascension Materials:</p>
             <div className="grid grid-cols-3 gap-2 text-sm">
-              {missingResources.chips.basic > 0 && (
+              {missingResources.wEngineAscension.basic > 0 && (
                 <div className="text-center">
                   <span className="text-gray-400 block">Basic</span>
-                  <span className="text-red-400 font-medium">{missingResources.chips.basic}</span>
+                  <span className="text-red-400 font-medium">{missingResources.wEngineAscension.basic}</span>
                 </div>
               )}
-              {missingResources.chips.advanced > 0 && (
+              {missingResources.wEngineAscension.advanced > 0 && (
                 <div className="text-center">
                   <span className="text-gray-400 block">Advanced</span>
-                  <span className="text-red-400 font-medium">{missingResources.chips.advanced}</span>
+                  <span className="text-red-400 font-medium">{missingResources.wEngineAscension.advanced}</span>
                 </div>
               )}
-              {missingResources.chips.specialized > 0 && (
+              {missingResources.wEngineAscension.expert > 0 && (
                 <div className="text-center">
-                  <span className="text-gray-400 block">Specialized</span>
-                  <span className="text-red-400 font-medium">{missingResources.chips.specialized}</span>
+                  <span className="text-gray-400 block">Expert</span>
+                  <span className="text-red-400 font-medium">{missingResources.wEngineAscension.expert}</span>
                 </div>
               )}
             </div>

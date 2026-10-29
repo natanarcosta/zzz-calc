@@ -1,21 +1,21 @@
 {
   "classes": [
-    "Armorer",
-    "Rupture",
     "Attack",
     "Stun",
     "Anomaly",
     "Support",
-    "Defense"
+    "Defense",
+    "Rupture",
+    "Armorer"
   ],
   "elements": [
-    "Lumiflux",
-    "Wind",
     "Physical",
     "Fire",
     "Ice",
     "Electric",
-    "Ether"
+    "Ether",
+    "Wind",
+    "Lumiflux"
   ],
   "expSources": {
     "trainee": 100,
@@ -37,38 +37,50 @@
       "specialized": 250
     },
     "expertChallengeMaterials": 60,
-    "bossMaterials": 9
+    "bossMaterials": 9,
+    "hamsterCagePass": 5,
+    "wEngineExp": 600000,
+    "wEngineAscension": {
+      "basic": 4,
+      "advanced": 32,
+      "expert": 30
+    }
   },
   "characters": [
     {
       "id": "miyabi",
       "name": "Miyabi",
       "class": "Anomaly",
-      "element": "Ice"
+      "element": "Ice",
+      "hasWEngine": false
     },
     {
       "id": "yixuan",
       "name": "YiXuan",
       "class": "Rupture",
-      "element": "Ether"
+      "element": "Ether",
+      "hasWEngine": false
     },
     {
       "id": "sunbringer",
       "name": "Sunbringer",
       "class": "Armorer",
-      "element": "Fire"
+      "element": "Fire",
+      "hasWEngine": false
     },
     {
       "id": "robin",
       "name": "Robin",
       "class": "Defense",
-      "element": "Ether"
+      "element": "Ether",
+      "hasWEngine": false
     },
     {
       "id": "zhao",
       "name": "Zhao",
       "class": "Defense",
-      "element": "Physical"
+      "element": "Physical",
+      "hasWEngine": false
     }
   ]
 }

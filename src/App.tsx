@@ -10,19 +10,16 @@ function App() {
     <CharacterProvider>
       <ResourceProvider>
         <Layout>
-          <div className="flex gap-6">
-            {/* Left sidebar - Character Selector */}
-            <div className="w-80 flex-shrink-0">
-              <div className="sticky top-6">
+          <div className="flex flex-col gap-4 lg:gap-5">
+            <div className="flex flex-col xl:flex-row gap-4 lg:gap-5 xl:items-start">
+              <aside className="w-full xl:w-72 shrink-0">
                 <CharacterSelector />
-              </div>
+              </aside>
+              <section className="flex-1 min-w-0">
+                <ProgressDashboard />
+              </section>
             </div>
-            
-            {/* Main content */}
-            <div className="flex-1 space-y-8">
-              <ResourceInput />
-              <ProgressDashboard />
-            </div>
+            <ResourceInput compact />
           </div>
         </Layout>
       </ResourceProvider>

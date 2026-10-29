@@ -16,6 +16,18 @@ export interface Chips {
   specialized: number;
 }
 
+export interface WEngineExpMaterials {
+  basic: number;
+  advanced: number;
+  expert: number;
+}
+
+export interface WEngineAscensionMaterials {
+  basic: number;
+  advanced: number;
+  expert: number;
+}
+
 export interface Resources {
   dennies: number;
   investigatorLogs: InvestigatorLogs;
@@ -23,6 +35,9 @@ export interface Resources {
   chips: Record<string, Chips>;
   expertChallengeMaterials: number;
   bossMaterials: number;
+  hamsterCagePass: number;
+  wEngineExpMaterials: WEngineExpMaterials;
+  wEngineAscensionMaterials: Record<string, WEngineAscensionMaterials>;
 }
 
 export interface Character {
@@ -30,6 +45,7 @@ export interface Character {
   name: string;
   class: string;
   element: string;
+  hasWEngine: boolean;
 }
 
 export interface CharacterRequirements {
@@ -40,6 +56,9 @@ export interface CharacterRequirements {
   chips: Chips;
   expertChallengeMaterials: number;
   bossMaterials: number;
+  hamsterCagePass: number;
+  wEngineExp: number;
+  wEngineAscension: WEngineAscensionMaterials;
 }
 
 export interface GameData {
@@ -61,6 +80,9 @@ export interface MissingResources {
   dennies: number;
   expertChallenge: number;
   bossMaterials: number;
+  hamsterCagePass: number;
+  wEngineExp: number;
+  wEngineAscension: WEngineAscensionMaterials;
 }
 
 export interface ProgressData {
@@ -70,6 +92,9 @@ export interface ProgressData {
   dennies: number;
   expertChallenge: number;
   bossMaterials: number;
+  hamsterCagePass: number;
+  wEngineExp: number;
+  wEngineAscension: number;
   total: number;
   missing: MissingResources;
 }
