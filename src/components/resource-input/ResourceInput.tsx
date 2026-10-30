@@ -1,7 +1,9 @@
 import { useResources } from '../../contexts/ResourceContext';
-import { Coins, Scroll } from 'lucide-react';
-import type { GameData } from '../../types';
 import gameData from '../../data/game-data.json';
+import { MaterialIcon } from '../MaterialIcon';
+import { MATERIAL_ICONS } from '../../lib/materialIcons';
+import { Scroll } from 'lucide-react';
+import type { GameData } from '../../types';
 
 interface ResourceInputProps {
   compact?: boolean;
@@ -60,7 +62,9 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
           {/* Dennies */}
           <div className={compact ? 'space-y-1' : 'space-y-2'}>
             <label className="flex items-center gap-1.5 text-xs font-medium text-gray-400">
-              <Coins className="w-3.5 h-3.5" />
+              {MATERIAL_ICONS.denny && (
+                <MaterialIcon src={MATERIAL_ICONS.denny} alt="Dennies" size="sm" />
+              )}
               Dennies
             </label>
             <input
@@ -107,7 +111,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
             </label>
             <div className="grid grid-cols-3 gap-2">
               <div>
-                <label className="text-[10px] lg:text-xs text-gray-500 mb-0.5 block">Trainee</label>
+                <label className="text-[10px] lg:text-xs text-gray-500 mb-0.5 block flex items-center gap-1">
+                  {MATERIAL_ICONS.investigatorLogs?.trainee && (
+                    <MaterialIcon src={MATERIAL_ICONS.investigatorLogs.trainee} alt="Trainee" size="sm" />
+                  )}
+                  Trainee
+                </label>
                 <input
                   type="number"
                   min="0"
@@ -118,7 +127,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                 />
               </div>
               <div>
-                <label className="text-[10px] lg:text-xs text-gray-500 mb-0.5 block">Official</label>
+                <label className="text-[10px] lg:text-xs text-gray-500 mb-0.5 block flex items-center gap-1">
+                  {MATERIAL_ICONS.investigatorLogs?.official && (
+                    <MaterialIcon src={MATERIAL_ICONS.investigatorLogs.official} alt="Official" size="sm" />
+                  )}
+                  Official
+                </label>
                 <input
                   type="number"
                   min="0"
@@ -129,7 +143,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                 />
               </div>
               <div>
-                <label className="text-[10px] lg:text-xs text-gray-500 mb-0.5 block">Senior</label>
+                <label className="text-[10px] lg:text-xs text-gray-500 mb-0.5 block flex items-center gap-1">
+                  {MATERIAL_ICONS.investigatorLogs?.senior && (
+                    <MaterialIcon src={MATERIAL_ICONS.investigatorLogs.senior} alt="Senior" size="sm" />
+                  )}
+                  Senior
+                </label>
                 <input
                   type="number"
                   min="0"
@@ -162,10 +181,20 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     : 'space-y-2 p-3 bg-gray-800 rounded-md border border-gray-700'
                 }
               >
-                <h3 className="text-xs font-semibold text-gray-300 truncate mb-1.5">{className}</h3>
+                <h3 className="text-xs font-semibold text-gray-300 truncate mb-1.5 flex items-center gap-1.5">
+                  {MATERIAL_ICONS.classes[className] && (
+                    <MaterialIcon src={MATERIAL_ICONS.classes[className]} alt={className} size="sm" />
+                  )}
+                  {className}
+                </h3>
                 <div className={compact ? 'grid grid-cols-3 gap-1' : 'space-y-2'}>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Bas</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.seals[className]?.basic && (
+                        <MaterialIcon src={MATERIAL_ICONS.seals[className].basic} alt={`${className} Basic`} size="sm" />
+                      )}
+                      Bas
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -176,7 +205,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Adv</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.seals[className]?.advanced && (
+                        <MaterialIcon src={MATERIAL_ICONS.seals[className].advanced} alt={`${className} Advanced`} size="sm" />
+                      )}
+                      Adv
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -187,7 +221,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Top</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.seals[className]?.topTier && (
+                        <MaterialIcon src={MATERIAL_ICONS.seals[className].topTier} alt={`${className} Top-Tier`} size="sm" />
+                      )}
+                      Top
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -222,10 +261,20 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     : 'space-y-2 p-3 bg-gray-800 rounded-md border border-gray-700'
                 }
               >
-                <h3 className="text-xs font-semibold text-gray-300 truncate mb-1.5">{element}</h3>
+                <h3 className="text-xs font-semibold text-gray-300 truncate mb-1.5 flex items-center gap-1.5">
+                  {MATERIAL_ICONS.elements[element] && (
+                    <MaterialIcon src={MATERIAL_ICONS.elements[element]} alt={element} size="sm" />
+                  )}
+                  {element}
+                </h3>
                 <div className={compact ? 'grid grid-cols-3 gap-1' : 'space-y-2'}>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Bas</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.chips[element]?.basic && (
+                        <MaterialIcon src={MATERIAL_ICONS.chips[element].basic} alt={`${element} Basic`} size="sm" />
+                      )}
+                      Bas
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -236,7 +285,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Adv</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.chips[element]?.advanced && (
+                        <MaterialIcon src={MATERIAL_ICONS.chips[element].advanced} alt={`${element} Advanced`} size="sm" />
+                      )}
+                      Adv
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -247,7 +301,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Spec</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.chips[element]?.specialized && (
+                        <MaterialIcon src={MATERIAL_ICONS.chips[element].specialized} alt={`${element} Specialized`} size="sm" />
+                      )}
+                      Spec
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -265,7 +324,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
 
         {/* Hamster Cage Pass */}
         <div className="space-y-2">
-          <label className="text-xs font-medium text-gray-400">Hamster Cage Pass</label>
+          <label className="text-xs font-medium text-gray-400 flex items-center gap-1.5">
+            {MATERIAL_ICONS.hamsterCagePass && (
+              <MaterialIcon src={MATERIAL_ICONS.hamsterCagePass} alt="Hamster Cage Pass" size="sm" />
+            )}
+            Hamster Cage Pass
+          </label>
           <input
             type="number"
             min="0"
@@ -281,7 +345,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
           <label className="text-xs font-medium text-gray-400">W-Engine EXP Materials</label>
           <div className={compact ? 'grid grid-cols-3 gap-2' : 'grid grid-cols-3 gap-3'}>
             <div>
-              <label className="text-[10px] text-gray-500 mb-0.5 block">Basic</label>
+              <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                {MATERIAL_ICONS.wEngineExp.basic && (
+                  <MaterialIcon src={MATERIAL_ICONS.wEngineExp.basic} alt="Basic" size="sm" />
+                )}
+                Basic
+              </label>
               <input
                 type="number"
                 min="0"
@@ -292,7 +361,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
               />
             </div>
             <div>
-              <label className="text-[10px] text-gray-500 mb-0.5 block">Advanced</label>
+              <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                {MATERIAL_ICONS.wEngineExp.advanced && (
+                  <MaterialIcon src={MATERIAL_ICONS.wEngineExp.advanced} alt="Advanced" size="sm" />
+                )}
+                Advanced
+              </label>
               <input
                 type="number"
                 min="0"
@@ -303,7 +377,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
               />
             </div>
             <div>
-              <label className="text-[10px] text-gray-500 mb-0.5 block">Expert</label>
+              <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                {MATERIAL_ICONS.wEngineExp.expert && (
+                  <MaterialIcon src={MATERIAL_ICONS.wEngineExp.expert} alt="Expert" size="sm" />
+                )}
+                Expert
+              </label>
               <input
                 type="number"
                 min="0"
@@ -335,10 +414,20 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     : 'space-y-2 p-3 bg-gray-800 rounded-md border border-gray-700'
                 }
               >
-                <h3 className="text-xs font-semibold text-gray-300 truncate mb-1.5">{className}</h3>
+                <h3 className="text-xs font-semibold text-gray-300 truncate mb-1.5 flex items-center gap-1.5">
+                  {MATERIAL_ICONS.classes[className] && (
+                    <MaterialIcon src={MATERIAL_ICONS.classes[className]} alt={className} size="sm" />
+                  )}
+                  {className}
+                </h3>
                 <div className={compact ? 'grid grid-cols-3 gap-1' : 'space-y-2'}>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Bas</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.wEngineAscension[className]?.basic && (
+                        <MaterialIcon src={MATERIAL_ICONS.wEngineAscension[className].basic} alt={`${className} Basic`} size="sm" />
+                      )}
+                      Bas
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -349,7 +438,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Adv</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.wEngineAscension[className]?.advanced && (
+                        <MaterialIcon src={MATERIAL_ICONS.wEngineAscension[className].advanced} alt={`${className} Advanced`} size="sm" />
+                      )}
+                      Adv
+                    </label>
                     <input
                       type="number"
                       min="0"
@@ -360,7 +454,12 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-gray-500 mb-0.5 block">Exp</label>
+                    <label className="text-[10px] text-gray-500 mb-0.5 block flex items-center gap-1">
+                      {MATERIAL_ICONS.wEngineAscension[className]?.expert && (
+                        <MaterialIcon src={MATERIAL_ICONS.wEngineAscension[className].expert} alt={`${className} Expert`} size="sm" />
+                      )}
+                      Exp
+                    </label>
                     <input
                       type="number"
                       min="0"
