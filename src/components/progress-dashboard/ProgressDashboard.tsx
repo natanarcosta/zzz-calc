@@ -1,6 +1,6 @@
 import { useCharacters } from '../../hooks/useCharacters';
 import { useResources } from '../../hooks/useResources';
-import { calculateTotalProgress } from '../../lib/resourceCalculator';
+import { calculateTotalProgress, calculateCombinedMissingResources } from '../../lib/resourceCalculator';
 import { CharacterProgressCard } from './CharacterProgressCard';
 import { MissingResourcesCard } from './MissingResourcesCard';
 import { DashboardOverview } from './DashboardOverview';
@@ -41,8 +41,7 @@ export const ProgressDashboard = () => {
   }
 
   // Calculate combined missing resources for all selected characters
-  const firstProgress = calculateTotalProgress(
-    selectedCharacterData[0],
+  const combinedMissingResources = calculateCombinedMissingResources(
     resources,
     data.characterRequirements,
     selectedCharacterData
@@ -61,20 +60,10 @@ export const ProgressDashboard = () => {
     );
 
     // Group seals by class
-    if (!sealsByClass[character.class]) {
-      sealsByClass[character.class] = { basic: 0, advanced: 0, topTier: 0 };
-    }
-    sealsByClass[character.class].basic += progress.missing.seals.basic;
-    sealsByClass[character.class].advanced += progress.missing.seals.advanced;
-    sealsByClass[character.class].topTier += progress.missing.seals.topTier;
+    sealsByClass[character.class] = progress.missing.seals;
 
     // Group chips by element
-    if (!chipsByElement[character.element]) {
-      chipsByElement[character.element] = { basic: 0, advanced: 0, specialized: 0 };
-    }
-    chipsByElement[character.element].basic += progress.missing.chips.basic;
-    chipsByElement[character.element].advanced += progress.missing.chips.advanced;
-    chipsByElement[character.element].specialized += progress.missing.chips.specialized;
+    chipsByElement[character.element] = progress.missing.chips;
 
     return {
       character,
@@ -102,15 +91,9 @@ export const ProgressDashboard = () => {
   );
 
   const combinedMissing = {
-    exp: firstProgress.missing.exp,
-    dennies: firstProgress.missing.dennies,
-    expertChallenge: firstProgress.missing.expertChallenge,
-    bossMaterials: firstProgress.missing.bossMaterials,
-    hamsterCagePass: firstProgress.missing.hamsterCagePass,
+    ...combinedMissingResources,
     seals: combinedSeals,
     chips: combinedChips,
-    wEngineExp: firstProgress.missing.wEngineExp,
-    wEngineAscension: firstProgress.missing.wEngineAscension,
     sealsByClass,
     chipsByElement,
   };
