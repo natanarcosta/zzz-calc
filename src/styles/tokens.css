@@ -1,0 +1,107 @@
+:root {
+  /* ZZZ Dark Neutral Foundation */
+  --color-bg: #111214;
+  --color-surface: #1a1b20;
+  --color-surface-hover: #25272e;
+  --color-surface-raised: #2f313a;
+  --color-surface-sunken: #0c0d0f;
+
+  /* ZZZ Signature Accents */
+  --color-accent: #ff6b35;
+  --color-accent-hover: #ff8554;
+  --color-accent-muted: rgba(255, 107, 53, 0.15);
+  --color-secondary: #f5e642;
+  --color-secondary-muted: rgba(245, 230, 66, 0.15);
+
+  /* Typography / Text Colors */
+  --color-text: #f4f2ec;
+  --color-text-secondary: #a3a4aa;
+  --color-text-muted: #6b6d77;
+
+  /* Status Colors */
+  --color-success: #77d6a0;
+  --color-warning: #f5c451;
+  --color-danger: #ff646b;
+
+  /* Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.15);
+  --border-strong: rgba(255, 255, 255, 0.28);
+  --border-accent: rgba(255, 107, 53, 0.5);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111214;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2f313a;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff6b35;
+}
+
+/* ZZZ Geometric & Graphic Utilities */
+.zzz-cut-corner-br {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+}
+
+.zzz-cut-corner-tl {
+  clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+}
+
+.zzz-chamfer-sm {
+  clip-path: polygon(6px 0, calc(100% - 6px) 0, 100% 6px, 100% calc(100% - 6px), calc(100% - 6px) 100%, 6px 100%, 0 calc(100% - 6px), 0 6px);
+}
+
+/* Caution Stripes */
+.zzz-stripes-hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(245, 230, 66, 0.12),
+    rgba(245, 230, 66, 0.12) 8px,
+    transparent 8px,
+    transparent 16px
+  );
+}
+
+.zzz-stripes-accent {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 107, 53, 0.14),
+    rgba(255, 107, 53, 0.14) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.zzz-grid-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Focus Utility */
+.zzz-focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #ff6b35;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

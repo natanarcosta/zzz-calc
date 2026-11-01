@@ -1,77 +1,157 @@
 import type { Character, ProgressData } from '../../types';
+import { getCharacterPortrait, getClassIcon, getElementIcon } from '../../lib/materialIcons';
+import { MaterialIcon } from '../MaterialIcon';
+import { ProgressBar } from '../ui/ProgressBar';
+import { Badge } from '../ui/Badge';
+import { Shield, Sparkles, X } from 'lucide-react';
 
 interface CharacterProgressCardProps {
   character: Character;
   progress: ProgressData;
+  onRemove?: () => void;
+  onToggleWEngine?: () => void;
 }
 
-const ProgressBar = ({ label, value }: { label: string; value: number }) => {
-  const getColor = (val: number) => {
-    if (val >= 100) return 'bg-green-500';
-    if (val >= 50) return 'bg-yellow-500';
-    return 'bg-red-500';
-  };
+export const CharacterProgressCard = ({
+  character,
+  progress,
+  onRemove,
+  onToggleWEngine,
+}: CharacterProgressCardProps) => {
+  const classIcon = getClassIcon(character.class);
+  const elementIcon = getElementIcon(character.element);
+  const isComplete = progress.total >= 100;
 
   return (
-    <div>
-      <div className="flex justify-between text-sm mb-1">
-        <span className="text-gray-400">{label}</span>
-        <span className={`font-medium ${value >= 100 ? 'text-green-400' : value >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
-          {value.toFixed(1)}%
-        </span>
-      </div>
-      <div className="w-full bg-gray-700 rounded-full h-2">
-        <div
-          className={`${getColor(value)} h-2 rounded-full transition-all duration-300`}
-          style={{ width: `${Math.min(100, value)}%` }}
-        />
-      </div>
-    </div>
-  );
-};
+    <div className="bg-zzz-surface rounded-sm border border-zzz-border hover:border-zzz-border-strong transition-all duration-200 relative overflow-hidden flex flex-col group">
+      {/* Top Graphic Accent */}
+      <div
+        className={`h-1 w-full ${
+          isComplete ? 'bg-zzz-success' : progress.total >= 50 ? 'bg-zzz-secondary' : 'bg-zzz-accent'
+        }`}
+      />
 
-export const CharacterProgressCard = ({ character, progress }: CharacterProgressCardProps) => {
-  return (
-    <div className="p-4 lg:p-5 bg-gray-900 rounded-lg border border-gray-700/90 shadow-sm shadow-black/20">
-      <div className="border-b border-gray-700 pb-3">
-        <h3 className="text-lg font-bold text-white">{character.name}</h3>
-        <div className="flex gap-4 text-sm text-gray-400">
-          <span>{character.class}</span>
-          <span>•</span>
-          <span>{character.element}</span>
-        </div>
-      </div>
-
-      <div className="space-y-3 pt-3">
-        <ProgressBar label="EXP" value={progress.exp} />
-        <ProgressBar label="Seals" value={progress.seals} />
-        <ProgressBar label="Chips" value={progress.chips} />
-        <ProgressBar label="Dennies" value={progress.dennies} />
-        <ProgressBar label="Expert Challenge" value={progress.expertChallenge} />
-        <ProgressBar label="Boss Materials" value={progress.bossMaterials} />
-        <ProgressBar label="Hamster Cage Pass" value={progress.hamsterCagePass} />
-        {character.hasWEngine && (
-          <>
-            <ProgressBar label="W-Engine EXP" value={progress.wEngineExp} />
-            <ProgressBar label="W-Engine Ascension" value={progress.wEngineAscension} />
-          </>
-        )}
-      </div>
-
-      <div className="border-t border-gray-700 pt-3 mt-3">
-        <div className="flex justify-between items-center">
-          <span className="text-sm font-medium text-gray-300">Total Progress</span>
-          <span className={`text-lg font-bold ${progress.total >= 100 ? 'text-green-400' : progress.total >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
-            {progress.total.toFixed(1)}%
-          </span>
-        </div>
-        <div className="w-full bg-gray-700 rounded-full h-3 mt-2">
-          <div
-            className={`h-3 rounded-full transition-all duration-300 ${
-              progress.total >= 100 ? 'bg-green-500' : progress.total >= 50 ? 'bg-yellow-500' : 'bg-red-500'
-            }`}
-            style={{ width: `${Math.min(100, progress.total)}%` }}
+      {/* Card Header with Portrait */}
+      <div className="p-3.5 sm:p-4 pb-3 border-b border-zzz-border-subtle bg-black/20 flex items-start gap-3">
+        {/* Agent Portrait Thumbnail */}
+        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-sm overflow-hidden bg-zzz-surface-sunken border border-zzz-border-subtle shrink-0">
+          <MaterialIcon
+            src={getCharacterPortrait(character.id)}
+            alt={character.name}
+            className="w-full h-full object-cover object-top"
           />
+          {/* Element Mini-Badge in Corner */}
+          {elementIcon && (
+            <div className="absolute bottom-0 right-0 p-0.5 bg-black/80 rounded-tl-sm border-t border-l border-white/10">
+              <MaterialIcon src={elementIcon} alt={character.element} size="xs" />
+            </div>
+          )}
+        </div>
+
+        {/* Agent Details */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between gap-1">
+            <h3 className="font-display text-base sm:text-lg font-bold text-white tracking-wide uppercase truncate">
+              {character.name}
+            </h3>
+            {onRemove && (
+              <button
+                type="button"
+                onClick={onRemove}
+                title={`Remove ${character.name}`}
+                className="text-zzz-text-muted hover:text-zzz-danger p-1 rounded-sm zzz-focus-ring transition-colors shrink-0"
+                aria-label={`Remove ${character.name}`}
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-wrap items-center gap-1.5 mt-1">
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-mono bg-white/5 border border-white/10 text-zzz-text-secondary">
+              {classIcon && <MaterialIcon src={classIcon} alt={character.class} size="xs" />}
+              {character.class}
+            </span>
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-mono bg-white/5 border border-white/10 text-zzz-text-secondary">
+              {elementIcon && <MaterialIcon src={elementIcon} alt={character.element} size="xs" />}
+              {character.element}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Progress Bars List */}
+      <div className="p-3.5 sm:p-4 space-y-2.5 flex-1">
+        <div className="space-y-2 text-xs">
+          <ProgressBar label="EXP (Logs)" value={progress.exp} size="sm" />
+          <ProgressBar label="Dennies" value={progress.dennies} size="sm" />
+          <ProgressBar label={`${character.class} Seals`} value={progress.seals} size="sm" />
+          <ProgressBar label={`${character.element} Chips`} value={progress.chips} size="sm" />
+          <ProgressBar label="Expert Challenge" value={progress.expertChallenge} size="sm" />
+          <ProgressBar label="Boss Materials" value={progress.bossMaterials} size="sm" />
+          <ProgressBar label="Hamster Cage Pass" value={progress.hamsterCagePass} size="sm" />
+
+          {character.hasWEngine && (
+            <div className="pt-2 mt-2 border-t border-zzz-border-subtle space-y-2">
+              <div className="flex items-center gap-1 text-[11px] font-mono text-zzz-secondary font-semibold uppercase tracking-wider">
+                <Sparkles className="w-3 h-3 text-zzz-secondary" />
+                <span>W-Engine Progression</span>
+              </div>
+              <ProgressBar label="W-Engine EXP" value={progress.wEngineExp} size="sm" />
+              <ProgressBar label="W-Engine Ascension" value={progress.wEngineAscension} size="sm" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Footer: W-Engine Toggle & Total Readiness */}
+      <div className="p-3 sm:p-3.5 bg-black/40 border-t border-zzz-border-subtle mt-auto space-y-2.5">
+        {/* W-Engine quick toggle */}
+        <div className="flex items-center justify-between">
+          <button
+            type="button"
+            onClick={onToggleWEngine}
+            className={`inline-flex items-center gap-1.5 px-2 py-1 rounded text-xs font-mono transition-colors border ${
+              character.hasWEngine
+                ? 'bg-zzz-secondary/15 text-zzz-secondary border-zzz-secondary/40'
+                : 'bg-white/5 text-zzz-text-muted hover:text-white border-transparent'
+            }`}
+          >
+            <Shield className="w-3.5 h-3.5" />
+            <span>{character.hasWEngine ? 'W-Engine Active' : 'Include W-Engine'}</span>
+          </button>
+
+          <Badge
+            variant={isComplete ? 'success' : progress.total >= 50 ? 'secondary' : 'danger'}
+            size="xs"
+            dot
+          >
+            {isComplete ? 'READY' : 'INCOMPLETE'}
+          </Badge>
+        </div>
+
+        {/* Total Overall Bar */}
+        <div>
+          <div className="flex justify-between items-baseline text-xs mb-1">
+            <span className="font-mono text-zzz-text-secondary uppercase tracking-wider font-semibold">
+              Total Readiness
+            </span>
+            <span
+              className={`font-mono font-bold text-sm tabular-nums ${
+                isComplete ? 'text-zzz-success' : progress.total >= 50 ? 'text-zzz-secondary' : 'text-zzz-danger'
+              }`}
+            >
+              {progress.total.toFixed(1)}%
+            </span>
+          </div>
+          <div className="w-full bg-black/60 rounded-sm h-2.5 border border-zzz-border-subtle overflow-hidden p-[1px]">
+            <div
+              className={`h-full rounded-sm transition-all duration-300 ${
+                isComplete ? 'bg-zzz-success' : progress.total >= 50 ? 'bg-zzz-secondary' : 'bg-zzz-accent'
+              }`}
+              style={{ width: `${Math.min(100, Math.max(0, progress.total))}%` }}
+            />
+          </div>
         </div>
       </div>
     </div>

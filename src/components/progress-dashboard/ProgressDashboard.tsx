@@ -1,13 +1,16 @@
-import { useCharacters } from '../../contexts/CharacterContext';
-import { useResources } from '../../contexts/ResourceContext';
+import { useCharacters } from '../../hooks/useCharacters';
+import { useResources } from '../../hooks/useResources';
 import { calculateTotalProgress } from '../../lib/resourceCalculator';
 import { CharacterProgressCard } from './CharacterProgressCard';
 import { MissingResourcesCard } from './MissingResourcesCard';
+import { DashboardOverview } from './DashboardOverview';
 import type { GameData } from '../../types';
 import gameData from '../../data/game-data.json';
+import { Users, Crosshair } from 'lucide-react';
 
 export const ProgressDashboard = () => {
-  const { selectedCharacters, charactersWithWEngine } = useCharacters();
+  const { selectedCharacters, charactersWithWEngine, toggleCharacter, toggleWEngine } =
+    useCharacters();
   const { resources } = useResources();
   const data = gameData as GameData;
 
@@ -20,15 +23,24 @@ export const ProgressDashboard = () => {
 
   if (selectedCharacterData.length === 0) {
     return (
-      <div className="p-6 bg-gray-900 rounded-lg border border-gray-800 text-center">
-        <p className="text-gray-400">No characters selected. Please select characters to view progress.</p>
+      <div className="bg-zzz-surface rounded-sm border border-zzz-border p-8 sm:p-12 text-center relative overflow-hidden zzz-stripes-hazard/20">
+        <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 text-zzz-accent mx-auto flex items-center justify-center mb-4">
+          <Crosshair className="w-8 h-8" />
+        </div>
+        <div className="text-xs font-mono uppercase tracking-widest text-zzz-accent font-bold mb-1">
+          // SYSTEM.STANDBY
+        </div>
+        <h3 className="font-display text-xl sm:text-2xl font-bold text-white uppercase">
+          No Agents Selected
+        </h3>
+        <p className="text-sm text-zzz-text-secondary max-w-md mx-auto mt-2">
+          Select one or more agents from the directory to analyze promotion readiness, calculate required certification seals, and audit material shortages.
+        </p>
       </div>
     );
   }
 
   // Calculate combined missing resources for all selected characters
-  // Dennies, Expert Challenge, and Boss Materials are shared - take from first character
-  // Seals and Chips need to be grouped by class/element
   const firstProgress = calculateTotalProgress(
     selectedCharacterData[0],
     resources,
@@ -40,7 +52,7 @@ export const ProgressDashboard = () => {
   const sealsByClass: Record<string, { basic: number; advanced: number; topTier: number }> = {};
   const chipsByElement: Record<string, { basic: number; advanced: number; specialized: number }> = {};
 
-  selectedCharacterData.forEach((character) => {
+  const progressList = selectedCharacterData.map((character) => {
     const progress = calculateTotalProgress(
       character,
       resources,
@@ -63,6 +75,11 @@ export const ProgressDashboard = () => {
     chipsByElement[character.element].basic += progress.missing.chips.basic;
     chipsByElement[character.element].advanced += progress.missing.chips.advanced;
     chipsByElement[character.element].specialized += progress.missing.chips.specialized;
+
+    return {
+      character,
+      progress,
+    };
   });
 
   // Sum up all grouped seals and chips
@@ -98,26 +115,71 @@ export const ProgressDashboard = () => {
     chipsByElement,
   };
 
+  // Derive counts for overview
+  let missingItemCount = 0;
+  if (combinedMissing.exp > 0) missingItemCount++;
+  if (combinedMissing.dennies > 0) missingItemCount++;
+  if (combinedMissing.expertChallenge > 0) missingItemCount++;
+  if (combinedMissing.bossMaterials > 0) missingItemCount++;
+  if (combinedMissing.hamsterCagePass > 0) missingItemCount++;
+  if (combinedMissing.wEngineExp > 0) missingItemCount++;
+
+  Object.values(sealsByClass).forEach((s) => {
+    if (s.basic > 0) missingItemCount++;
+    if (s.advanced > 0) missingItemCount++;
+    if (s.topTier > 0) missingItemCount++;
+  });
+
+  Object.values(chipsByElement).forEach((c) => {
+    if (c.basic > 0) missingItemCount++;
+    if (c.advanced > 0) missingItemCount++;
+    if (c.specialized > 0) missingItemCount++;
+  });
+
+  if (combinedMissing.wEngineAscension.basic > 0) missingItemCount++;
+  if (combinedMissing.wEngineAscension.advanced > 0) missingItemCount++;
+  if (combinedMissing.wEngineAscension.expert > 0) missingItemCount++;
+
+  const averageProgress =
+    progressList.reduce((acc, p) => acc + p.progress.total, 0) / (progressList.length || 1);
+
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-white">Progress Dashboard</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {selectedCharacterData.map((character) => {
-          const progress = calculateTotalProgress(
-            character,
-            resources,
-            data.characterRequirements,
-            selectedCharacterData
-          );
-          return (
+    <div className="space-y-4 lg:space-y-5">
+      {/* Overview Metrics Bar */}
+      <DashboardOverview
+        selectedCount={selectedCharacterData.length}
+        averageProgress={averageProgress}
+        missingItemCount={missingItemCount}
+      />
+
+      {/* Target Dossiers Grid */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-zzz-accent" />
+            <h2 className="font-display text-base font-bold text-white uppercase tracking-wider">
+              Selected Agent Targets
+            </h2>
+          </div>
+          <span className="font-mono text-xs text-zzz-text-muted">
+            {selectedCharacterData.length} ACTIVE
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5 sm:gap-4">
+          {progressList.map(({ character, progress }) => (
             <CharacterProgressCard
               key={character.id}
               character={character}
               progress={progress}
+              onRemove={() => toggleCharacter(character.id)}
+              onToggleWEngine={() => toggleWEngine(character.id)}
             />
-          );
-        })}
+          ))}
+        </div>
       </div>
+
+      {/* Missing Materials Analysis */}
       <MissingResourcesCard missingResources={combinedMissing} />
     </div>
   );

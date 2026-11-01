@@ -1,43 +1,8 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import type { Resources, InvestigatorLogs, Seals, Chips, WEngineExpMaterials, WEngineAscensionMaterials } from '../types';
 import { localStorage, STORAGE_KEYS } from '../lib/localStorage';
-
-interface ResourceContextType {
-  resources: Resources;
-  updateDennies: (value: number) => void;
-  updateInvestigatorLogs: (logs: Partial<InvestigatorLogs>) => void;
-  updateSeals: (className: string, seals: Partial<Seals>) => void;
-  updateChips: (element: string, chips: Partial<Chips>) => void;
-  updateExpertChallengeMaterials: (value: number) => void;
-  updateBossMaterials: (value: number) => void;
-  updateHamsterCagePass: (value: number) => void;
-  updateWEngineExpMaterials: (materials: Partial<WEngineExpMaterials>) => void;
-  updateWEngineAscensionMaterials: (element: string, materials: Partial<WEngineAscensionMaterials>) => void;
-  resetResources: () => void;
-}
-
-const initialResources: Resources = {
-  dennies: 0,
-  investigatorLogs: {
-    trainee: 0,
-    official: 0,
-    senior: 0,
-  },
-  seals: {},
-  chips: {},
-  expertChallengeMaterials: 0,
-  bossMaterials: 0,
-  hamsterCagePass: 0,
-  wEngineExpMaterials: {
-    basic: 0,
-    advanced: 0,
-    expert: 0,
-  },
-  wEngineAscensionMaterials: {},
-};
-
-const ResourceContext = createContext<ResourceContextType | undefined>(undefined);
+import { ResourceContext, initialResources } from './resourceContextDef';
 
 export const ResourceProvider = ({ children }: { children: ReactNode }) => {
   const [resources, setResources] = useState<Resources>(() => {
@@ -47,8 +12,6 @@ export const ResourceProvider = ({ children }: { children: ReactNode }) => {
     // Migrate wEngineAscensionMaterials from element-based to class-based
     const migrated = { ...initialResources, ...saved };
     if (saved.wEngineAscensionMaterials) {
-      // If data exists, it might be element-based. We need to migrate it.
-      // For now, just keep it as is - the UI will handle the migration
       migrated.wEngineAscensionMaterials = saved.wEngineAscensionMaterials;
     }
     return migrated;
@@ -163,12 +126,4 @@ export const ResourceProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </ResourceContext.Provider>
   );
-};
-
-export const useResources = () => {
-  const context = useContext(ResourceContext);
-  if (context === undefined) {
-    throw new Error('useResources must be used within a ResourceProvider');
-  }
-  return context;
 };

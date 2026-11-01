@@ -286,3 +286,24 @@ export const MATERIAL_ICONS = {
 } as const;
 
 export type MaterialIconPath = typeof MATERIAL_ICONS;
+
+export const getClassIcon = (className: string): string | undefined => {
+  return (MATERIAL_ICONS.classes as Record<string, string>)[className];
+};
+
+export const getElementIcon = (element: string): string | undefined => {
+  return (MATERIAL_ICONS.elements as Record<string, string>)[element];
+};
+
+export const getSealIcons = (className: string): { basic: string; advanced: string; topTier: string } | undefined => {
+  return (MATERIAL_ICONS.seals as Record<string, { basic: string; advanced: string; topTier: string }>)[className];
+};
+
+export const getChipIcons = (element: string): { basic: string; advanced: string; specialized: string } | undefined => {
+  return (MATERIAL_ICONS.chips as Record<string, { basic: string; advanced: string; specialized: string }>)[element];
+};
+
+export const getWEngineAscensionIcons = (className: string): { basic: string; advanced: string; expert: string } | undefined => {
+  return (MATERIAL_ICONS.wEngineAscension as Record<string, { basic: string; advanced: string; expert: string }>)[className];
+};
+

@@ -10,16 +10,21 @@ function App() {
     <CharacterProvider>
       <ResourceProvider>
         <Layout>
-          <div className="flex flex-col gap-4 lg:gap-5">
-            <div className="flex flex-col xl:flex-row gap-4 lg:gap-5 xl:items-start">
-              <aside className="w-full xl:w-72 shrink-0">
+          <div className="flex flex-col gap-5 lg:gap-6">
+            {/* Top Section: Agent Directory & Progress Dashboard */}
+            <div className="flex flex-col xl:flex-row gap-5 lg:gap-6 xl:items-start">
+              <aside className="w-full xl:w-80 shrink-0">
                 <CharacterSelector />
               </aside>
               <section className="flex-1 min-w-0">
                 <ProgressDashboard />
               </section>
             </div>
-            <ResourceInput compact />
+
+            {/* Bottom Section: Warehouse Resource Inventory */}
+            <section className="w-full">
+              <ResourceInput />
+            </section>
           </div>
         </Layout>
       </ResourceProvider>

@@ -1,20 +1,7 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { localStorage, STORAGE_KEYS } from '../lib/localStorage';
-
-interface CharacterContextType {
-  selectedCharacters: string[];
-  charactersWithWEngine: string[];
-  toggleCharacter: (characterId: string) => void;
-  toggleWEngine: (characterId: string) => void;
-  selectCharacter: (characterId: string) => void;
-  deselectCharacter: (characterId: string) => void;
-  clearSelection: () => void;
-  isCharacterSelected: (characterId: string) => boolean;
-  hasWEngine: (characterId: string) => boolean;
-}
-
-const CharacterContext = createContext<CharacterContextType | undefined>(undefined);
+import { CharacterContext } from './characterContextDef';
 
 export const CharacterProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCharacters, setSelectedCharacters] = useState<string[]>(() => {
@@ -40,7 +27,6 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
       const newSelection = prev.includes(characterId)
         ? prev.filter((id) => id !== characterId)
         : [...prev, characterId];
-      // Also remove from W-Engine list when deselecting character
       if (!newSelection.includes(characterId)) {
         setCharactersWithWEngine((wPrev) => wPrev.filter((id) => id !== characterId));
       }
@@ -99,12 +85,4 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </CharacterContext.Provider>
   );
-};
-
-export const useCharacters = () => {
-  const context = useContext(CharacterContext);
-  if (context === undefined) {
-    throw new Error('useCharacters must be used within a CharacterProvider');
-  }
-  return context;
 };

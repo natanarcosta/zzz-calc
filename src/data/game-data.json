@@ -48,20 +48,6 @@
   },
   "characters": [
     {
-      "id": "miyabi",
-      "name": "Miyabi",
-      "class": "Anomaly",
-      "element": "Ice",
-      "hasWEngine": false
-    },
-    {
-      "id": "yixuan",
-      "name": "YiXuan",
-      "class": "Rupture",
-      "element": "Ether",
-      "hasWEngine": false
-    },
-    {
       "id": "sunbringer",
       "name": "Sunbringer",
       "class": "Armorer",
@@ -76,8 +62,8 @@
       "hasWEngine": false
     },
     {
-      "id": "zhao",
-      "name": "Zhao",
+      "id": "caesar",
+      "name": "Caesar",
       "class": "Defense",
       "element": "Physical",
       "hasWEngine": false
