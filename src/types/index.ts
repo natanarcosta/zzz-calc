@@ -40,12 +40,27 @@ export interface Resources {
   wEngineAscensionMaterials: Record<string, WEngineAscensionMaterials>;
 }
 
+export interface SkillLevels {
+  basicAttack: number;
+  dodge: number;
+  assist: number;
+  specialAttack: number;
+  chainAttack: number;
+}
+
 export interface Character {
   id: string;
   name: string;
   class: string;
   element: string;
   hasWEngine: boolean;
+}
+
+export interface SkillLevelRequirements {
+  basic: number;
+  advanced: number;
+  specialized: number;
+  hamsterCagePass: number;
 }
 
 export interface CharacterRequirements {
@@ -59,6 +74,7 @@ export interface CharacterRequirements {
   hamsterCagePass: number;
   wEngineExp: number;
   wEngineAscension: WEngineAscensionMaterials;
+  skillLevels: Record<number, SkillLevelRequirements>;
 }
 
 export interface GameData {

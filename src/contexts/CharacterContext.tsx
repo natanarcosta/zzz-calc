@@ -2,6 +2,15 @@ import { useState, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import { localStorage, STORAGE_KEYS } from '../lib/localStorage';
 import { CharacterContext } from './characterContextDef';
+import type { SkillLevels } from '../types';
+
+const DEFAULT_SKILL_LEVELS: SkillLevels = {
+  basicAttack: 1,
+  dodge: 1,
+  assist: 1,
+  specialAttack: 1,
+  chainAttack: 1,
+};
 
 export const CharacterProvider = ({ children }: { children: ReactNode }) => {
   const [selectedCharacters, setSelectedCharacters] = useState<string[]>(() => {
@@ -14,6 +23,11 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
     return saved || [];
   });
 
+  const [characterSkillLevels, setCharacterSkillLevels] = useState<Record<string, SkillLevels>>(() => {
+    const saved = localStorage.get<Record<string, SkillLevels>>('zzz-calc-skill-levels');
+    return saved || {};
+  });
+
   useEffect(() => {
     localStorage.set(STORAGE_KEYS.SELECTED_CHARACTERS, selectedCharacters);
   }, [selectedCharacters]);
@@ -21,6 +35,10 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     localStorage.set('zzz-calc-w-engines', charactersWithWEngine);
   }, [charactersWithWEngine]);
+
+  useEffect(() => {
+    localStorage.set('zzz-calc-skill-levels', characterSkillLevels);
+  }, [characterSkillLevels]);
 
   const toggleCharacter = (characterId: string) => {
     setSelectedCharacters((prev) => {
@@ -68,11 +86,29 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
     return charactersWithWEngine.includes(characterId);
   };
 
+  const updateSkillLevel = (characterId: string, skill: keyof SkillLevels, level: number) => {
+    setCharacterSkillLevels((prev) => {
+      const currentLevels = prev[characterId] || DEFAULT_SKILL_LEVELS;
+      return {
+        ...prev,
+        [characterId]: {
+          ...currentLevels,
+          [skill]: Math.max(1, Math.min(12, level)),
+        },
+      };
+    });
+  };
+
+  const getSkillLevels = (characterId: string): SkillLevels => {
+    return characterSkillLevels[characterId] || DEFAULT_SKILL_LEVELS;
+  };
+
   return (
     <CharacterContext.Provider
       value={{
         selectedCharacters,
         charactersWithWEngine,
+        characterSkillLevels,
         toggleCharacter,
         toggleWEngine,
         selectCharacter,
@@ -80,6 +116,8 @@ export const CharacterProvider = ({ children }: { children: ReactNode }) => {
         clearSelection,
         isCharacterSelected,
         hasWEngine,
+        updateSkillLevel,
+        getSkillLevels,
       }}
     >
       {children}

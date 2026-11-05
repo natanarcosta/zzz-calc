@@ -44,6 +44,20 @@
       "basic": 4,
       "advanced": 32,
       "expert": 30
+    },
+    "skillLevels": {
+      "1": { "basic": 0, "advanced": 0, "specialized": 0, "hamsterCagePass": 0 },
+      "2": { "basic": 2, "advanced": 0, "specialized": 0, "hamsterCagePass": 0 },
+      "3": { "basic": 5, "advanced": 0, "specialized": 0, "hamsterCagePass": 0 },
+      "4": { "basic": 5, "advanced": 2, "specialized": 0, "hamsterCagePass": 0 },
+      "5": { "basic": 5, "advanced": 5, "specialized": 0, "hamsterCagePass": 0 },
+      "6": { "basic": 5, "advanced": 9, "specialized": 0, "hamsterCagePass": 0 },
+      "7": { "basic": 5, "advanced": 15, "specialized": 0, "hamsterCagePass": 0 },
+      "8": { "basic": 5, "advanced": 15, "specialized": 5, "hamsterCagePass": 0 },
+      "9": { "basic": 5, "advanced": 15, "specialized": 13, "hamsterCagePass": 0 },
+      "10": { "basic": 5, "advanced": 15, "specialized": 23, "hamsterCagePass": 0 },
+      "11": { "basic": 5, "advanced": 15, "specialized": 35, "hamsterCagePass": 0 },
+      "12": { "basic": 5, "advanced": 15, "specialized": 50, "hamsterCagePass": 1 }
     }
   },
   "characters": [

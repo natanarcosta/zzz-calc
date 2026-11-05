@@ -9,7 +9,7 @@ import gameData from '../../data/game-data.json';
 import { Users, Crosshair } from 'lucide-react';
 
 export const ProgressDashboard = () => {
-  const { selectedCharacters, charactersWithWEngine, toggleCharacter, toggleWEngine } =
+  const { selectedCharacters, charactersWithWEngine, toggleCharacter, toggleWEngine, characterSkillLevels } =
     useCharacters();
   const { resources } = useResources();
   const data = gameData as GameData;
@@ -44,7 +44,8 @@ export const ProgressDashboard = () => {
   const combinedMissingResources = calculateCombinedMissingResources(
     resources,
     data.characterRequirements,
-    selectedCharacterData
+    selectedCharacterData,
+    characterSkillLevels
   );
 
   // Group seals by class and chips by element
@@ -56,7 +57,8 @@ export const ProgressDashboard = () => {
       character,
       resources,
       data.characterRequirements,
-      selectedCharacterData
+      selectedCharacterData,
+      characterSkillLevels
     );
 
     // Group seals by class

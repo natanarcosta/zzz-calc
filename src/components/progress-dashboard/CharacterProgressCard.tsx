@@ -1,9 +1,11 @@
-import type { Character, ProgressData } from '../../types';
+import type { Character, ProgressData, SkillLevels } from '../../types';
 import { getCharacterPortrait, getClassIcon, getElementIcon } from '../../lib/materialIcons';
 import { MaterialIcon } from '../MaterialIcon';
 import { ProgressBar } from '../ui/ProgressBar';
 import { Badge } from '../ui/Badge';
-import { Shield, Sparkles, X } from 'lucide-react';
+import { Shield, Sparkles, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { useCharacters } from '../../hooks/useCharacters';
+import { useState } from 'react';
 
 interface CharacterProgressCardProps {
   character: Character;
@@ -21,6 +23,30 @@ export const CharacterProgressCard = ({
   const classIcon = getClassIcon(character.class);
   const elementIcon = getElementIcon(character.element);
   const isComplete = progress.total >= 100;
+  const { getSkillLevels, updateSkillLevel } = useCharacters();
+  const [showSkillLevels, setShowSkillLevels] = useState(false);
+  
+  const skillLevels = getSkillLevels(character.id);
+  
+  const skillIcons: Record<keyof SkillLevels, string> = {
+    basicAttack: '/src/assets/images/skills/basic_attack.webp',
+    dodge: '/src/assets/images/skills/dodge.webp',
+    assist: '/src/assets/images/skills/assist.webp',
+    specialAttack: '/src/assets/images/skills/special_attack.webp',
+    chainAttack: '/src/assets/images/skills/chain_attack.webp',
+  };
+  
+  const skillLabels: Record<keyof SkillLevels, string> = {
+    basicAttack: 'Basic Attack',
+    dodge: 'Dodge',
+    assist: 'Assist',
+    specialAttack: 'Special Attack',
+    chainAttack: 'Chain Attack',
+  };
+  
+  const handleSkillLevelChange = (skill: keyof SkillLevels, level: number) => {
+    updateSkillLevel(character.id, skill, level);
+  };
 
   return (
     <div className="bg-zzz-surface rounded-sm border border-zzz-border hover:border-zzz-border-strong transition-all duration-200 relative overflow-hidden flex flex-col group">
@@ -102,6 +128,45 @@ export const CharacterProgressCard = ({
             </div>
           )}
         </div>
+      </div>
+
+      {/* Skill Levels Section */}
+      <div className="border-t border-zzz-border-subtle">
+        <button
+          type="button"
+          onClick={() => setShowSkillLevels(!showSkillLevels)}
+          className="w-full px-3.5 py-2 flex items-center justify-between gap-2 text-xs font-mono text-zzz-text-secondary hover:text-white hover:bg-white/5 transition-colors"
+        >
+          <span className="font-semibold uppercase tracking-wider">Skill Levels</span>
+          {showSkillLevels ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+        
+        {showSkillLevels && (
+          <div className="px-3.5 pb-3.5 space-y-2">
+            {(Object.keys(skillLevels) as Array<keyof SkillLevels>).map((skill) => (
+              <div key={skill} className="flex items-center gap-2">
+                <MaterialIcon 
+                  src={skillIcons[skill]} 
+                  alt={skillLabels[skill]} 
+                  size="xs"
+                  className="w-6 h-6 shrink-0"
+                />
+                <span className="text-[11px] text-zzz-text-secondary min-w-[80px]">{skillLabels[skill]}</span>
+                <select
+                  value={skillLevels[skill]}
+                  onChange={(e) => handleSkillLevelChange(skill, parseInt(e.target.value, 10))}
+                  className="flex-1 bg-black/40 border border-zzz-border-subtle rounded-sm px-2 py-1 text-xs font-mono text-white focus:outline-none focus:border-zzz-accent transition-colors"
+                >
+                  {Array.from({ length: 12 }, (_, i) => i + 1).map((level) => (
+                    <option key={level} value={level}>
+                      Lv. {level}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Footer: W-Engine Toggle & Total Readiness */}
