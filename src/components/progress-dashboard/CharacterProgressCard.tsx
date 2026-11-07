@@ -29,11 +29,11 @@ export const CharacterProgressCard = ({
   const skillLevels = getSkillLevels(character.id);
   
   const skillIcons: Record<keyof SkillLevels, string> = {
-    basicAttack: '/src/assets/images/skills/basic_attack.webp',
-    dodge: '/src/assets/images/skills/dodge.webp',
-    assist: '/src/assets/images/skills/assist.webp',
-    specialAttack: '/src/assets/images/skills/special_attack.webp',
-    chainAttack: '/src/assets/images/skills/chain_attack.webp',
+    basicAttack: '/assets/images/skills/basic_attack.webp',
+    dodge: '/assets/images/skills/dodge.webp',
+    assist: '/assets/images/skills/assist.webp',
+    specialAttack: '/assets/images/skills/special_attack.webp',
+    chainAttack: '/assets/images/skills/chain_attack.webp',
   };
   
   const skillLabels: Record<keyof SkillLevels, string> = {
