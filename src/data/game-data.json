@@ -46,26 +46,86 @@
       "expert": 30
     },
     "skillLevels": {
-      "1": { "basic": 0, "advanced": 0, "specialized": 0, "hamsterCagePass": 0 },
-      "2": { "basic": 2, "advanced": 0, "specialized": 0, "hamsterCagePass": 0 },
-      "3": { "basic": 5, "advanced": 0, "specialized": 0, "hamsterCagePass": 0 },
-      "4": { "basic": 5, "advanced": 2, "specialized": 0, "hamsterCagePass": 0 },
-      "5": { "basic": 5, "advanced": 5, "specialized": 0, "hamsterCagePass": 0 },
-      "6": { "basic": 5, "advanced": 9, "specialized": 0, "hamsterCagePass": 0 },
-      "7": { "basic": 5, "advanced": 15, "specialized": 0, "hamsterCagePass": 0 },
-      "8": { "basic": 5, "advanced": 15, "specialized": 5, "hamsterCagePass": 0 },
-      "9": { "basic": 5, "advanced": 15, "specialized": 13, "hamsterCagePass": 0 },
-      "10": { "basic": 5, "advanced": 15, "specialized": 23, "hamsterCagePass": 0 },
-      "11": { "basic": 5, "advanced": 15, "specialized": 35, "hamsterCagePass": 0 },
-      "12": { "basic": 5, "advanced": 15, "specialized": 50, "hamsterCagePass": 1 }
+      "1": {
+        "basic": 0,
+        "advanced": 0,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "2": {
+        "basic": 2,
+        "advanced": 0,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "3": {
+        "basic": 5,
+        "advanced": 0,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "4": {
+        "basic": 5,
+        "advanced": 2,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "5": {
+        "basic": 5,
+        "advanced": 5,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "6": {
+        "basic": 5,
+        "advanced": 9,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "7": {
+        "basic": 5,
+        "advanced": 15,
+        "specialized": 0,
+        "hamsterCagePass": 0
+      },
+      "8": {
+        "basic": 5,
+        "advanced": 15,
+        "specialized": 5,
+        "hamsterCagePass": 0
+      },
+      "9": {
+        "basic": 5,
+        "advanced": 15,
+        "specialized": 13,
+        "hamsterCagePass": 0
+      },
+      "10": {
+        "basic": 5,
+        "advanced": 15,
+        "specialized": 23,
+        "hamsterCagePass": 0
+      },
+      "11": {
+        "basic": 5,
+        "advanced": 15,
+        "specialized": 35,
+        "hamsterCagePass": 0
+      },
+      "12": {
+        "basic": 5,
+        "advanced": 15,
+        "specialized": 50,
+        "hamsterCagePass": 1
+      }
     }
   },
   "characters": [
     {
-      "id": "sunbringer",
-      "name": "Sunbringer",
-      "class": "Armorer",
-      "element": "Fire",
+      "id": "kafka",
+      "name": "Kafka",
+      "class": "Anomaly",
+      "element": "Electric",
       "hasWEngine": false
     },
     {
@@ -76,10 +136,444 @@
       "hasWEngine": false
     },
     {
+      "id": "severian",
+      "name": "Severian",
+      "class": "Attack",
+      "element": "Wind",
+      "hasWEngine": false
+    },
+    {
+      "id": "roxy",
+      "name": "Roxy",
+      "class": "Stun",
+      "element": "Wind",
+      "hasWEngine": false
+    },
+    {
+      "id": "phoenix",
+      "name": "Phoenix",
+      "class": "Anomaly",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "sunbringer",
+      "name": "Sunbringer",
+      "class": "Armorer",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "claret",
+      "name": "Claret",
+      "class": "Armorer",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "pyrois",
+      "name": "Pyrois",
+      "class": "Attack",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "sigrid",
+      "name": "Sigrid",
+      "class": "Attack",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "starlight_billy",
+      "name": "Starlight - Billy",
+      "class": "Rupture",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "remielle",
+      "name": "Remielle",
+      "class": "Anomaly",
+      "element": "Lumiflux",
+      "hasWEngine": false
+    },
+    {
+      "id": "norma",
+      "name": "Norma",
+      "class": "Stun",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "velina",
+      "name": "Velina",
+      "class": "Anomaly",
+      "element": "Wind",
+      "hasWEngine": false
+    },
+    {
+      "id": "promeia",
+      "name": "Promeia",
+      "class": "Anomaly",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "cissia",
+      "name": "Cissia",
+      "class": "Attack",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "nangong_yu",
+      "name": "Nangong Yu",
+      "class": "Stun",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "aria",
+      "name": "Aria",
+      "class": "Anomaly",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "sunna",
+      "name": "Sunna",
+      "class": "Support",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "dialyn",
+      "name": "Dialyn",
+      "class": "Stun",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "banyue",
+      "name": "Banyue",
+      "class": "Rupture",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "ye_shunguang",
+      "name": "Ye Shunguang",
+      "class": "Attack",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "yidhari",
+      "name": "Yidhari",
+      "class": "Rupture",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "lucia",
+      "name": "Lucia",
+      "class": "Support",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "seed",
+      "name": "Seed",
+      "class": "Attack",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "zhao",
+      "name": "Zhao",
+      "class": "Defense",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "alice",
+      "name": "Alice",
+      "class": "Anomaly",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "pan_yinhu",
+      "name": "Pan Yinhu",
+      "class": "Defense",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "yuzuha",
+      "name": "Yuzuha",
+      "class": "Support",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "orphie_magus",
+      "name": "Orphie & Magus",
+      "class": "Attack",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "manato",
+      "name": "Manato",
+      "class": "Rupture",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "ju_fufu",
+      "name": "Ju Fufu",
+      "class": "Stun",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "soldier_0_anby",
+      "name": "Soldier 0 - Anby",
+      "class": "Attack",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "yixuan",
+      "name": "Yixuan",
+      "class": "Rupture",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "trigger",
+      "name": "Trigger",
+      "class": "Stun",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "vivian",
+      "name": "Vivian",
+      "class": "Anomaly",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo",
+      "class": "Attack",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "evelyn",
+      "name": "Evelyn",
+      "class": "Attack",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "astra_yao",
+      "name": "Astra Yao",
+      "class": "Support",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "pulchra",
+      "name": "Pulchra",
+      "class": "Stun",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "jane",
+      "name": "Jane",
+      "class": "Anomaly",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "burnice",
+      "name": "Burnice",
+      "class": "Anomaly",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
       "id": "caesar",
       "name": "Caesar",
       "class": "Defense",
       "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "qingyi",
+      "name": "Qingyi",
+      "class": "Stun",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "zhu_yuan",
+      "name": "Zhu Yuan",
+      "class": "Attack",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "yanagi",
+      "name": "Yanagi",
+      "class": "Anomaly",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "rina",
+      "name": "Rina",
+      "class": "Support",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "harumasa",
+      "name": "Harumasa",
+      "class": "Attack",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "ellen",
+      "name": "Ellen",
+      "class": "Attack",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "grace",
+      "name": "Grace",
+      "class": "Anomaly",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "lighter",
+      "name": "Lighter",
+      "class": "Stun",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "lycaon",
+      "name": "Lycaon",
+      "class": "Stun",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "koleda",
+      "name": "Koleda",
+      "class": "Stun",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "miyabi",
+      "name": "Miyabi",
+      "class": "Anomaly",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "soldier_11",
+      "name": "Soldier 11",
+      "class": "Attack",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "nekomata",
+      "name": "Nekomata",
+      "class": "Attack",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "piper",
+      "name": "Piper",
+      "class": "Anomaly",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "seth",
+      "name": "Seth",
+      "class": "Defense",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "lucy",
+      "name": "Lucy",
+      "class": "Support",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "soukaku",
+      "name": "Soukaku",
+      "class": "Support",
+      "element": "Ice",
+      "hasWEngine": false
+    },
+    {
+      "id": "ben",
+      "name": "Ben",
+      "class": "Defense",
+      "element": "Fire",
+      "hasWEngine": false
+    },
+    {
+      "id": "anton",
+      "name": "Anton",
+      "class": "Attack",
+      "element": "Electric",
+      "hasWEngine": false
+    },
+    {
+      "id": "billy",
+      "name": "Billy",
+      "class": "Attack",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "corin",
+      "name": "Corin",
+      "class": "Attack",
+      "element": "Physical",
+      "hasWEngine": false
+    },
+    {
+      "id": "nicole",
+      "name": "Nicole",
+      "class": "Support",
+      "element": "Ether",
+      "hasWEngine": false
+    },
+    {
+      "id": "anby",
+      "name": "Anby",
+      "class": "Stun",
+      "element": "Electric",
       "hasWEngine": false
     }
   ]
