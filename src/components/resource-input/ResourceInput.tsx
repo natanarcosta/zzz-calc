@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useResources } from '../../hooks/useResources';
+import { useCharacters } from '../../hooks/useCharacters';
 import gameData from '../../data/game-data.json';
 import { MaterialIcon } from '../MaterialIcon';
 import {
@@ -12,7 +13,7 @@ import {
 } from '../../lib/materialIcons';
 import type { GameData } from '../../types';
 import { Badge } from '../ui/Badge';
-import { Archive, Coins, ShieldCheck, Zap, Disc3 } from 'lucide-react';
+import { Archive, Coins, ShieldCheck, Zap, Disc3, Skull } from 'lucide-react';
 
 interface ResourceInputProps {
   compact?: boolean;
@@ -31,9 +32,10 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
     updateWEngineExpMaterials,
     updateWEngineAscensionMaterials,
   } = useResources();
+  const { selectedCharacters } = useCharacters();
 
   const data = gameData as GameData;
-  const [activeTab, setActiveTab] = useState<'all' | 'currency' | 'seals' | 'chips' | 'wengine'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'currency' | 'boss' | 'seals' | 'chips' | 'wengine'>('all');
 
   const inputClass =
     'w-full px-2.5 py-1.5 bg-black/50 border border-zzz-border-subtle hover:border-zzz-border focus:border-zzz-accent rounded-sm text-white font-mono text-xs tabular-nums zzz-focus-ring transition-colors';
@@ -83,6 +85,18 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
           >
             <Coins className="w-3.5 h-3.5" />
             <span>General</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('boss')}
+            className={`px-2.5 py-1 rounded-sm uppercase tracking-wider flex items-center gap-1.5 transition-colors ${
+              activeTab === 'boss'
+                ? 'bg-zzz-accent text-black font-bold'
+                : 'bg-white/5 text-zzz-text-secondary hover:text-white'
+            }`}
+          >
+            <Skull className="w-3.5 h-3.5" />
+            <span>Boss/Expert</span>
           </button>
           <button
             type="button"
@@ -149,44 +163,6 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
                   min="0"
                   value={resources.dennies || ''}
                   onChange={(e) => updateDennies(Math.max(0, Number(e.target.value)))}
-                  className={inputClass}
-                  placeholder="0"
-                />
-              </div>
-
-              {/* Expert Challenge */}
-              <div className="p-2.5 bg-black/25 rounded-sm border border-zzz-border-subtle space-y-1.5">
-                <label className="flex items-center gap-1.5 text-xs font-mono text-zzz-text-secondary">
-                  <span className="w-4 h-4 rounded bg-zzz-accent/15 text-zzz-accent font-bold text-[10px] flex items-center justify-center">
-                    E
-                  </span>
-                  <span className="truncate">Expert Materials</span>
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={resources.expertChallengeMaterials || ''}
-                  onChange={(e) =>
-                    updateExpertChallengeMaterials(Math.max(0, Number(e.target.value)))
-                  }
-                  className={inputClass}
-                  placeholder="0"
-                />
-              </div>
-
-              {/* Boss Materials */}
-              <div className="p-2.5 bg-black/25 rounded-sm border border-zzz-border-subtle space-y-1.5">
-                <label className="flex items-center gap-1.5 text-xs font-mono text-zzz-text-secondary">
-                  <span className="w-4 h-4 rounded bg-zzz-secondary/15 text-zzz-secondary font-bold text-[10px] flex items-center justify-center">
-                    B
-                  </span>
-                  <span className="truncate">Boss Materials</span>
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  value={resources.bossMaterials || ''}
-                  onChange={(e) => updateBossMaterials(Math.max(0, Number(e.target.value)))}
                   className={inputClass}
                   placeholder="0"
                 />
@@ -286,7 +262,103 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
           </div>
         )}
 
-        {/* Section 2: Certification Seals */}
+        {/* Section 2: Boss & Expert Challenge Materials (Per Character) */}
+        {(activeTab === 'all' || activeTab === 'boss') && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between border-b border-zzz-border-subtle pb-2">
+              <span className="font-mono text-xs text-zzz-text-secondary uppercase tracking-wider font-bold flex items-center gap-1.5">
+                <Skull className="w-3.5 h-3.5 text-zzz-secondary" />
+                Boss & Expert Challenge Materials (Per Character)
+              </span>
+              <Badge variant="outline" size="xs">
+                CHARACTER SPECIFIC
+              </Badge>
+            </div>
+
+            {selectedCharacters.length === 0 ? (
+              <div className="p-4 bg-black/25 rounded-sm border border-zzz-border-subtle text-center">
+                <span className="text-xs font-mono text-zzz-text-muted">
+                  Select characters in the Character Selector to manage their materials
+                </span>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {selectedCharacters.map((characterId) => {
+                  const character = data.characters.find((c) => c.id === characterId);
+                  if (!character) return null;
+
+                  const bossMaterialName = character.bossMaterial || 'N/A';
+                  const expertMaterialName = character.expertChallengeMaterial || 'N/A';
+                  const abbreviatedExpert = expertMaterialName.replace('Higher Dimensional Data: ', '');
+
+                  return (
+                    <div
+                      key={characterId}
+                      className="p-3 bg-black/25 rounded-sm border border-zzz-border-subtle space-y-2.5"
+                    >
+                      <div className="flex items-center justify-between border-b border-white/5 pb-1.5">
+                        <span className="font-display font-bold text-xs uppercase text-white">
+                          {character.name}
+                        </span>
+                        <Badge variant="outline" size="xs">
+                          {character.class} / {character.element}
+                        </Badge>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* Boss Material */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-zzz-text-muted flex items-center gap-1">
+                            <MaterialIcon
+                              src="/assets/images/materials/notorious_hunt.webp"
+                              alt="Boss"
+                              size="xs"
+                            />
+                            <span className="truncate">Boss: {bossMaterialName}</span>
+                          </label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={resources.bossMaterials[characterId] || ''}
+                            onChange={(e) =>
+                              updateBossMaterials(characterId, Math.max(0, Number(e.target.value)))
+                            }
+                            className={tierInputClass}
+                            placeholder="0"
+                          />
+                        </div>
+
+                        {/* Expert Challenge Material */}
+                        <div className="space-y-1">
+                          <label className="text-[10px] font-mono text-zzz-text-muted flex items-center gap-1">
+                            <MaterialIcon
+                              src="/assets/images/materials/expert_challenge.jpg"
+                              alt="Expert"
+                              size="xs"
+                            />
+                            <span className="truncate">Expert: {abbreviatedExpert}</span>
+                          </label>
+                          <input
+                            type="number"
+                            min="0"
+                            value={resources.expertChallengeMaterials[characterId] || ''}
+                            onChange={(e) =>
+                              updateExpertChallengeMaterials(characterId, Math.max(0, Number(e.target.value)))
+                            }
+                            className={tierInputClass}
+                            placeholder="0"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Section 3: Certification Seals */}
         {(activeTab === 'all' || activeTab === 'seals') && (
           <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-zzz-border-subtle pb-2">
@@ -382,7 +454,7 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
           </div>
         )}
 
-        {/* Section 3: Element Chips */}
+        {/* Section 4: Element Chips */}
         {(activeTab === 'all' || activeTab === 'chips') && (
           <div className="space-y-3">
             <div className="flex items-center justify-between border-b border-zzz-border-subtle pb-2">
@@ -478,7 +550,7 @@ export const ResourceInput = ({ compact = false }: ResourceInputProps) => {
           </div>
         )}
 
-        {/* Section 4: W-Engine Materials */}
+        {/* Section 5: W-Engine Materials */}
         {(activeTab === 'all' || activeTab === 'wengine') && (
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-zzz-border-subtle pb-2">

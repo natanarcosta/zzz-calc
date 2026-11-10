@@ -14,6 +14,8 @@ interface MissingResourcesCardProps {
   missingResources: MissingResources & {
     sealsByClass?: Record<string, { basic: number; advanced: number; topTier: number }>;
     chipsByElement?: Record<string, { basic: number; advanced: number; specialized: number }>;
+    bossMaterialsByCharacter?: Record<string, { name: string; missing: number }>;
+    expertChallengeByCharacter?: Record<string, { name: string; missing: number }>;
   };
 }
 
@@ -21,8 +23,8 @@ export const MissingResourcesCard = ({ missingResources }: MissingResourcesCardP
   const hasMissing =
     missingResources.exp > 0 ||
     missingResources.dennies > 0 ||
-    missingResources.expertChallenge > 0 ||
-    missingResources.bossMaterials > 0 ||
+    Object.values(missingResources.expertChallenge).some(v => v > 0) ||
+    Object.values(missingResources.bossMaterials).some(v => v > 0) ||
     missingResources.hamsterCagePass > 0 ||
     missingResources.wEngineExp > 0 ||
     missingResources.seals.basic > 0 ||
@@ -121,34 +123,48 @@ export const MissingResourcesCard = ({ missingResources }: MissingResourcesCardP
               </div>
             )}
 
-            {/* Expert Challenge */}
-            {missingResources.expertChallenge > 0 && (
+            {/* Expert Challenge - Per Character */}
+            {missingResources.expertChallengeByCharacter && Object.entries(missingResources.expertChallengeByCharacter).length > 0 && (
               <div className="flex items-center justify-between p-2.5 bg-black/30 rounded-sm border border-zzz-border-subtle">
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-6 h-6 rounded bg-zzz-accent/15 text-zzz-accent font-mono font-bold text-xs flex items-center justify-center shrink-0">
                     EC
                   </div>
-                  <span className="text-xs font-medium text-zzz-text truncate">
-                    Expert Materials
-                  </span>
+                  <div className="min-w-0">
+                    <span className="text-xs font-medium text-zzz-text block truncate">Expert Challenge</span>
+                    <span className="text-[10px] text-zzz-text-muted block truncate">
+                      {Object.entries(missingResources.expertChallengeByCharacter)
+                        .filter(([, data]) => data.missing > 0)
+                        .map(([, data]) => data.name.replace('Higher Dimensional Data: ', ''))
+                        .join(', ')}
+                    </span>
+                  </div>
                 </div>
                 <span className="font-mono text-xs font-bold text-zzz-danger tabular-nums shrink-0">
-                  -{missingResources.expertChallenge}
+                  -{Object.values(missingResources.expertChallengeByCharacter).reduce((sum, data) => sum + data.missing, 0)}
                 </span>
               </div>
             )}
 
-            {/* Boss Materials */}
-            {missingResources.bossMaterials > 0 && (
+            {/* Boss Materials - Per Character */}
+            {missingResources.bossMaterialsByCharacter && Object.entries(missingResources.bossMaterialsByCharacter).length > 0 && (
               <div className="flex items-center justify-between p-2.5 bg-black/30 rounded-sm border border-zzz-border-subtle">
                 <div className="flex items-center gap-2 min-w-0">
                   <div className="w-6 h-6 rounded bg-zzz-secondary/15 text-zzz-secondary font-mono font-bold text-xs flex items-center justify-center shrink-0">
                     BM
                   </div>
-                  <span className="text-xs font-medium text-zzz-text truncate">Boss Materials</span>
+                  <div className="min-w-0">
+                    <span className="text-xs font-medium text-zzz-text block truncate">Boss Materials</span>
+                    <span className="text-[10px] text-zzz-text-muted block truncate">
+                      {Object.entries(missingResources.bossMaterialsByCharacter)
+                        .filter(([, data]) => data.missing > 0)
+                        .map(([, data]) => data.name)
+                        .join(', ')}
+                    </span>
+                  </div>
                 </div>
                 <span className="font-mono text-xs font-bold text-zzz-danger tabular-nums shrink-0">
-                  -{missingResources.bossMaterials}
+                  -{Object.values(missingResources.bossMaterialsByCharacter).reduce((sum, data) => sum + data.missing, 0)}
                 </span>
               </div>
             )}

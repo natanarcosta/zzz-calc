@@ -51,6 +51,8 @@ export const ProgressDashboard = () => {
   // Group seals by class and chips by element
   const sealsByClass: Record<string, { basic: number; advanced: number; topTier: number }> = {};
   const chipsByElement: Record<string, { basic: number; advanced: number; specialized: number }> = {};
+  const bossMaterialsByCharacter: Record<string, { name: string; missing: number }> = {};
+  const expertChallengeByCharacter: Record<string, { name: string; missing: number }> = {};
 
   const progressList = selectedCharacterData.map((character) => {
     const progress = calculateTotalProgress(
@@ -66,6 +68,22 @@ export const ProgressDashboard = () => {
 
     // Group chips by element
     chipsByElement[character.element] = progress.missing.chips;
+
+    // Group boss materials by character
+    if (character.bossMaterial && progress.missing.bossMaterials[character.id]) {
+      bossMaterialsByCharacter[character.id] = {
+        name: character.bossMaterial,
+        missing: progress.missing.bossMaterials[character.id],
+      };
+    }
+
+    // Group expert challenge materials by character
+    if (character.expertChallengeMaterial && progress.missing.expertChallenge[character.id]) {
+      expertChallengeByCharacter[character.id] = {
+        name: character.expertChallengeMaterial,
+        missing: progress.missing.expertChallenge[character.id],
+      };
+    }
 
     return {
       character,
@@ -98,14 +116,16 @@ export const ProgressDashboard = () => {
     chips: combinedChips,
     sealsByClass,
     chipsByElement,
+    bossMaterialsByCharacter,
+    expertChallengeByCharacter,
   };
 
   // Derive counts for overview
   let missingItemCount = 0;
   if (combinedMissing.exp > 0) missingItemCount++;
   if (combinedMissing.dennies > 0) missingItemCount++;
-  if (combinedMissing.expertChallenge > 0) missingItemCount++;
-  if (combinedMissing.bossMaterials > 0) missingItemCount++;
+  if (Object.values(combinedMissing.expertChallenge).some(v => v > 0)) missingItemCount++;
+  if (Object.values(combinedMissing.bossMaterials).some(v => v > 0)) missingItemCount++;
   if (combinedMissing.hamsterCagePass > 0) missingItemCount++;
   if (combinedMissing.wEngineExp > 0) missingItemCount++;
 

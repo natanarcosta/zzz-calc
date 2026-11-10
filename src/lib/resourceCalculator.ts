@@ -234,30 +234,26 @@ export const calculateDenniesProgress = (
 };
 
 /**
- * Calculate Expert Challenge Materials progress
- * Formula: (materials / (60 * characterCount)) * 100
+ * Calculate Expert Challenge Materials progress for a specific character
+ * Formula: (materials / 60) * 100
  */
 export const calculateExpertChallengeProgress = (
   materials: number,
-  totalNeeded: number = 60,
-  characterCount: number = 1
+  totalNeeded: number = 60
 ): number => {
-  const totalNeededForAll = totalNeeded * characterCount;
-  const progress = (materials / totalNeededForAll) * 100;
+  const progress = (materials / totalNeeded) * 100;
   return Math.min(100, Math.max(0, progress));
 };
 
 /**
- * Calculate Boss Materials progress
- * Formula: (materials / (9 * characterCount)) * 100
+ * Calculate Boss Materials progress for a specific character
+ * Formula: (materials / 9) * 100
  */
 export const calculateBossMaterialsProgress = (
   materials: number,
-  totalNeeded: number = 9,
-  characterCount: number = 1
+  totalNeeded: number = 9
 ): number => {
-  const totalNeededForAll = totalNeeded * characterCount;
-  const progress = (materials / totalNeededForAll) * 100;
+  const progress = (materials / totalNeeded) * 100;
   return Math.min(100, Math.max(0, progress));
 };
 
@@ -277,19 +273,6 @@ const calculateSharedMissingResources = (
   const totalDenniesNeeded = requirements.totalDennies * selectedCharacterCount;
   const missingDennies = Math.max(0, totalDenniesNeeded - resources.dennies);
 
-  const totalExpertChallengeNeeded =
-    requirements.expertChallengeMaterials * selectedCharacterCount;
-  const missingExpertChallenge = Math.max(
-    0,
-    totalExpertChallengeNeeded - resources.expertChallengeMaterials
-  );
-
-  const totalBossMaterialsNeeded = requirements.bossMaterials * selectedCharacterCount;
-  const missingBossMaterials = Math.max(
-    0,
-    totalBossMaterialsNeeded - resources.bossMaterials
-  );
-
   let totalHamsterCagePassNeeded: number;
   if (skillLevels && requirements.skillLevels) {
     totalHamsterCagePassNeeded = skillLevels.reduce((acc, levels) => {
@@ -303,8 +286,8 @@ const calculateSharedMissingResources = (
   return {
     exp: missingExp,
     dennies: missingDennies,
-    expertChallenge: missingExpertChallenge,
-    bossMaterials: missingBossMaterials,
+    expertChallenge: {},
+    bossMaterials: {},
     hamsterCagePass: missingHamsterCagePass,
   };
 };
@@ -492,6 +475,22 @@ export const calculateCombinedMissingResources = (
     { basic: 0, advanced: 0, specialized: 0 } as Chips
   );
 
+  // Calculate per-character expert challenge materials
+  const missingExpertChallenge = selectedCharacters.reduce((acc, character) => {
+    const owned = resources.expertChallengeMaterials[character.id] || 0;
+    const needed = requirements.expertChallengeMaterials;
+    const missing = Math.max(0, needed - owned);
+    return { ...acc, [character.id]: missing };
+  }, {} as Record<string, number>);
+
+  // Calculate per-character boss materials
+  const missingBossMaterials = selectedCharacters.reduce((acc, character) => {
+    const owned = resources.bossMaterials[character.id] || 0;
+    const needed = requirements.bossMaterials;
+    const missing = Math.max(0, needed - owned);
+    return { ...acc, [character.id]: missing };
+  }, {} as Record<string, number>);
+
   // Calculate W-Engine missing resources for characters with W-Engine
   const charactersWithWEngine = selectedCharacters.filter((c) => c.hasWEngine);
   const wEngineCount = charactersWithWEngine.length;
@@ -523,6 +522,8 @@ export const calculateCombinedMissingResources = (
     ...shared,
     seals: missingSeals,
     chips: missingChips,
+    expertChallenge: missingExpertChallenge,
+    bossMaterials: missingBossMaterials,
     wEngineExp: missingWEngineExp,
     wEngineAscension: missingWEngineAscension,
   };
@@ -570,6 +571,14 @@ export const calculateMissingResources = (
     requirements.skillLevels
   );
 
+  // Calculate per-character expert challenge materials
+  const ownedExpertChallenge = resources.expertChallengeMaterials[character.id] || 0;
+  const missingExpertChallenge = Math.max(0, requirements.expertChallengeMaterials - ownedExpertChallenge);
+
+  // Calculate per-character boss materials
+  const ownedBossMaterials = resources.bossMaterials[character.id] || 0;
+  const missingBossMaterials = Math.max(0, requirements.bossMaterials - ownedBossMaterials);
+
   // Calculate W-Engine missing resources if character has W-Engine
   const missingWEngineExp = character.hasWEngine
     ? calculateMissingWEngineExp(resources.wEngineExpMaterials || { basic: 0, advanced: 0, expert: 0 }, requirements.wEngineExp, 1)
@@ -587,6 +596,8 @@ export const calculateMissingResources = (
     ...shared,
     seals: missingSeals,
     chips: missingChips,
+    expertChallenge: { [character.id]: missingExpertChallenge },
+    bossMaterials: { [character.id]: missingBossMaterials },
     wEngineExp: missingWEngineExp,
     wEngineAscension: missingWEngineAscension,
   };
@@ -625,8 +636,12 @@ export const calculateTotalProgress = (
   
   const dennies = calculateDenniesProgress(resources.dennies, requirements.totalDennies, selectedCharacterCount);
   
-  const expertChallenge = calculateExpertChallengeProgress(resources.expertChallengeMaterials, requirements.expertChallengeMaterials, selectedCharacterCount);
-  const bossMaterials = calculateBossMaterialsProgress(resources.bossMaterials, requirements.bossMaterials, selectedCharacterCount);
+  // Per-character expert challenge and boss materials
+  const characterExpertChallenge = resources.expertChallengeMaterials[character.id] || 0;
+  const expertChallenge = calculateExpertChallengeProgress(characterExpertChallenge, requirements.expertChallengeMaterials);
+  
+  const characterBossMaterials = resources.bossMaterials[character.id] || 0;
+  const bossMaterials = calculateBossMaterialsProgress(characterBossMaterials, requirements.bossMaterials);
   
   // Collect skill levels for all selected characters
   const allSkillLevels = characterSkillLevels
@@ -664,5 +679,7 @@ export const calculateTotalProgress = (
     wEngineAscension,
     total,
     missing,
+    bossMaterialName: character.bossMaterial,
+    expertChallengeMaterialName: character.expertChallengeMaterial,
   };
 };

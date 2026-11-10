@@ -33,8 +33,8 @@ export interface Resources {
   investigatorLogs: InvestigatorLogs;
   seals: Record<string, Seals>;
   chips: Record<string, Chips>;
-  expertChallengeMaterials: number;
-  bossMaterials: number;
+  expertChallengeMaterials: Record<string, number>;
+  bossMaterials: Record<string, number>;
   hamsterCagePass: number;
   wEngineExpMaterials: WEngineExpMaterials;
   wEngineAscensionMaterials: Record<string, WEngineAscensionMaterials>;
@@ -54,6 +54,8 @@ export interface Character {
   class: string;
   element: string;
   hasWEngine: boolean;
+  bossMaterial?: string;
+  expertChallengeMaterial?: string;
 }
 
 export interface SkillLevelRequirements {
@@ -94,8 +96,8 @@ export interface MissingResources {
   seals: Seals;
   chips: Chips;
   dennies: number;
-  expertChallenge: number;
-  bossMaterials: number;
+  expertChallenge: Record<string, number>;
+  bossMaterials: Record<string, number>;
   hamsterCagePass: number;
   wEngineExp: number;
   wEngineAscension: WEngineAscensionMaterials;
@@ -113,6 +115,8 @@ export interface ProgressData {
   wEngineAscension: number;
   total: number;
   missing: MissingResources;
+  bossMaterialName?: string;
+  expertChallengeMaterialName?: string;
 }
 
 export interface GameState {

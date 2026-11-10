@@ -126,7 +126,9 @@
       "name": "Kafka",
       "class": "Anomaly",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Marrow-Draining Thorn",
+      "expertChallengeMaterial": "Toxic Edge"
     },
     {
       "id": "robin",
@@ -140,21 +142,27 @@
       "name": "Severian",
       "class": "Attack",
       "element": "Wind",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Timeworn Husk",
+      "expertChallengeMaterial": "Imitation Core"
     },
     {
       "id": "roxy",
       "name": "Roxy",
       "class": "Stun",
       "element": "Wind",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Counterfeit Nucleus",
+      "expertChallengeMaterial": "Imitation Core"
     },
     {
       "id": "phoenix",
       "name": "Phoenix",
       "class": "Anomaly",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Counterfeit Nucleus",
+      "expertChallengeMaterial": "Bloodstained Miasma Feather"
     },
     {
       "id": "sunbringer",
@@ -168,413 +176,530 @@
       "name": "Claret",
       "class": "Armorer",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Counterfeit Nucleus",
+      "expertChallengeMaterial": "Imitation Core"
     },
     {
       "id": "pyrois",
       "name": "Pyrois",
       "class": "Attack",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Timeworn Husk",
+      "expertChallengeMaterial": "Deep Erosion Circuit"
     },
     {
       "id": "sigrid",
       "name": "Sigrid",
       "class": "Attack",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Crimson Miasma Spike",
+      "expertChallengeMaterial": "Corrupted Dreamsteel"
     },
     {
       "id": "starlight_billy",
       "name": "Starlight - Billy",
       "class": "Rupture",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Clouded Crystalline Substance",
+      "expertChallengeMaterial": "Bloodstained Miasma Feather"
     },
     {
       "id": "remielle",
       "name": "Remielle",
       "class": "Anomaly",
       "element": "Lumiflux",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Timeworn Husk",
+      "expertChallengeMaterial": "Deep Erosion Circuit"
     },
     {
       "id": "norma",
       "name": "Norma",
       "class": "Stun",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Timeworn Husk",
+      "expertChallengeMaterial": "Deep Erosion Circuit"
     },
     {
       "id": "velina",
       "name": "Velina",
       "class": "Anomaly",
       "element": "Wind",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Timeworn Husk",
+      "expertChallengeMaterial": "Deep Erosion Circuit"
     },
     {
       "id": "promeia",
       "name": "Promeia",
       "class": "Anomaly",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Marrow-Draining Thorn",
+      "expertChallengeMaterial": "Toxic Edge"
     },
     {
       "id": "cissia",
       "name": "Cissia",
       "class": "Attack",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Exuvia of Refinement",
+      "expertChallengeMaterial": "Bloodstained Miasma Feather"
     },
     {
       "id": "nangong_yu",
       "name": "Nangong Yu",
       "class": "Stun",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Marrow-Draining Thorn",
+      "expertChallengeMaterial": "Spiked Corruption Core"
     },
     {
       "id": "aria",
       "name": "Aria",
       "class": "Anomaly",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Clouded Crystalline Substance",
+      "expertChallengeMaterial": "Falling Fist"
     },
     {
       "id": "sunna",
       "name": "Sunna",
       "class": "Support",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Clouded Crystalline Substance"
     },
     {
       "id": "dialyn",
       "name": "Dialyn",
       "class": "Stun",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Exuvia of Refinement",
+      "expertChallengeMaterial": "Stealth Phantom"
     },
     {
       "id": "banyue",
       "name": "Banyue",
       "class": "Rupture",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Crimson Miasma Spike",
+      "expertChallengeMaterial": "Miasmic Elytron"
     },
     {
       "id": "ye_shunguang",
       "name": "Ye Shunguang",
       "class": "Attack",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Clouded Crystalline Substance",
+      "expertChallengeMaterial": "Spiked Corruption Core"
     },
     {
       "id": "yidhari",
       "name": "Yidhari",
       "class": "Rupture",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Crimson Miasma Spike",
+      "expertChallengeMaterial": "Corrupted Dreamsteel"
     },
     {
       "id": "lucia",
       "name": "Lucia",
       "class": "Support",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Crimson Miasma Spike",
+      "expertChallengeMaterial": "Corrupted Dreamsteel"
     },
     {
       "id": "seed",
       "name": "Seed",
       "class": "Attack",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Exuvia of Refinement",
+      "expertChallengeMaterial": "Mortal Cleave"
     },
     {
       "id": "zhao",
       "name": "Zhao",
       "class": "Defense",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Clouded Crystalline Substance",
+      "expertChallengeMaterial": "Spiked Corruption Core"
     },
     {
       "id": "alice",
       "name": "Alice",
       "class": "Anomaly",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Sycophant's Refinement",
+      "expertChallengeMaterial": "Toxic Edge"
     },
     {
       "id": "pan_yinhu",
       "name": "Pan Yinhu",
       "class": "Defense",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Exuvia of Refinement",
+      "expertChallengeMaterial": "Miasmic Elytron"
     },
     {
       "id": "yuzuha",
       "name": "Yuzuha",
       "class": "Support",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Sycophant's Refinement",
+      "expertChallengeMaterial": "Toxic Edge"
     },
     {
       "id": "orphie_magus",
       "name": "Orphie & Magus",
       "class": "Attack",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Scarlet Engine",
+      "expertChallengeMaterial": "Miasmic Elytron"
     },
     {
       "id": "manato",
       "name": "Manato",
       "class": "Rupture",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Crimson Miasma Spike",
+      "expertChallengeMaterial": "Corrupted Dreamsteel"
     },
     {
       "id": "ju_fufu",
       "name": "Ju Fufu",
       "class": "Stun",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Exuvia of Refinement",
+      "expertChallengeMaterial": "Miasmic Elytron"
     },
     {
       "id": "soldier_0_anby",
       "name": "Soldier 0 - Anby",
       "class": "Attack",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Mortal Cleave"
     },
     {
       "id": "yixuan",
       "name": "Yixuan",
       "class": "Rupture",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Exuvia of Refinement",
+      "expertChallengeMaterial": "Miasmic Elytron"
     },
     {
       "id": "trigger",
       "name": "Trigger",
       "class": "Stun",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Mortal Cleave"
     },
     {
       "id": "vivian",
       "name": "Vivian",
       "class": "Anomaly",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Sycophant's Refinement",
+      "expertChallengeMaterial": "Thunderous Dragon"
     },
     {
       "id": "hugo",
       "name": "Hugo",
       "class": "Attack",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Murderous Obituary"
     },
     {
       "id": "evelyn",
       "name": "Evelyn",
       "class": "Attack",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Scarlet Engine",
+      "expertChallengeMaterial": "Steel Malice"
     },
     {
       "id": "astra_yao",
       "name": "Astra Yao",
       "class": "Support",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Thunderous Dragon"
     },
     {
       "id": "pulchra",
       "name": "Pulchra",
       "class": "Stun",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Scarlet Engine",
+      "expertChallengeMaterial": "Stealth Phantom"
     },
     {
       "id": "jane",
       "name": "Jane",
       "class": "Anomaly",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Falling Fist"
     },
     {
       "id": "burnice",
       "name": "Burnice",
       "class": "Anomaly",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Scarlet Engine",
+      "expertChallengeMaterial": "Stealth Phantom"
     },
     {
       "id": "caesar",
       "name": "Caesar",
       "class": "Defense",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Scarlet Engine",
+      "expertChallengeMaterial": "Stealth Phantom"
     },
     {
       "id": "qingyi",
       "name": "Qingyi",
       "class": "Stun",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Ethereal Pursuit"
     },
     {
       "id": "zhu_yuan",
       "name": "Zhu Yuan",
       "class": "Attack",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Ethereal Pursuit"
     },
     {
       "id": "yanagi",
       "name": "Yanagi",
       "class": "Anomaly",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Destructive Advance"
     },
     {
       "id": "rina",
       "name": "Rina",
       "class": "Support",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Destructive Advance"
     },
     {
       "id": "harumasa",
       "name": "Harumasa",
       "class": "Attack",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Sycophant's Refinement",
+      "expertChallengeMaterial": "Thunderous Dragon"
     },
     {
       "id": "ellen",
       "name": "Ellen",
       "class": "Attack",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Murderous Obituary"
     },
     {
       "id": "grace",
       "name": "Grace",
       "class": "Anomaly",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Destructive Advance"
     },
     {
       "id": "lighter",
       "name": "Lighter",
       "class": "Stun",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Scarlet Engine",
+      "expertChallengeMaterial": "Crimson Awe"
     },
     {
       "id": "lycaon",
       "name": "Lycaon",
       "class": "Stun",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Ethereal Pursuit"
     },
     {
       "id": "koleda",
       "name": "Koleda",
       "class": "Stun",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Steel Malice"
     },
     {
       "id": "miyabi",
       "name": "Miyabi",
       "class": "Anomaly",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Sycophant's Refinement",
+      "expertChallengeMaterial": "Thunderous Dragon"
     },
     {
       "id": "soldier_11",
       "name": "Soldier 11",
       "class": "Attack",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Destructive Advance"
     },
     {
       "id": "nekomata",
       "name": "Nekomata",
       "class": "Attack",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Crimson Awe"
     },
     {
       "id": "piper",
       "name": "Piper",
       "class": "Anomaly",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Crimson Awe"
     },
     {
       "id": "seth",
       "name": "Seth",
       "class": "Defense",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Falling Fist"
     },
     {
       "id": "lucy",
       "name": "Lucy",
       "class": "Support",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Steel Malice"
     },
     {
       "id": "soukaku",
       "name": "Soukaku",
       "class": "Support",
       "element": "Ice",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Murderous Obituary"
     },
     {
       "id": "ben",
       "name": "Ben",
       "class": "Defense",
       "element": "Fire",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Steel Malice"
     },
     {
       "id": "anton",
       "name": "Anton",
       "class": "Attack",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Living Drive",
+      "expertChallengeMaterial": "Destructive Advance"
     },
     {
       "id": "billy",
       "name": "Billy",
       "class": "Attack",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Ethereal Pursuit"
     },
     {
       "id": "corin",
       "name": "Corin",
       "class": "Attack",
       "element": "Physical",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Finale Dance Shoes",
+      "expertChallengeMaterial": "Crimson Awe"
     },
     {
       "id": "nicole",
       "name": "Nicole",
       "class": "Support",
       "element": "Ether",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Murderous Obituary"
     },
     {
       "id": "anby",
       "name": "Anby",
       "class": "Stun",
       "element": "Electric",
-      "hasWEngine": false
+      "hasWEngine": false,
+      "bossMaterial": "Ferocious Grip",
+      "expertChallengeMaterial": "Murderous Obituary"
     }
   ]
 }

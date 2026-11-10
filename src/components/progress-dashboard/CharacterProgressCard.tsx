@@ -113,8 +113,16 @@ export const CharacterProgressCard = ({
           <ProgressBar label="Dennies" value={progress.dennies} size="sm" />
           <ProgressBar label={`${character.class} Seals`} value={progress.seals} size="sm" />
           <ProgressBar label={`${character.element} Chips`} value={progress.chips} size="sm" />
-          <ProgressBar label="Expert Challenge" value={progress.expertChallenge} size="sm" />
-          <ProgressBar label="Boss Materials" value={progress.bossMaterials} size="sm" />
+          <ProgressBar 
+            label={progress.expertChallengeMaterialName ? `Expert: ${progress.expertChallengeMaterialName.replace('Higher Dimensional Data: ', '')}` : 'Expert Challenge'} 
+            value={progress.expertChallenge} 
+            size="sm" 
+          />
+          <ProgressBar 
+            label={progress.bossMaterialName ? `Boss: ${progress.bossMaterialName}` : 'Boss Materials'} 
+            value={progress.bossMaterials} 
+            size="sm" 
+          />
           <ProgressBar label="Hamster Cage Pass" value={progress.hamsterCagePass} size="sm" />
 
           {character.hasWEngine && (

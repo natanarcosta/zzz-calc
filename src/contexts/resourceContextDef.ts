@@ -14,8 +14,8 @@ export interface ResourceContextType {
   updateInvestigatorLogs: (logs: Partial<InvestigatorLogs>) => void;
   updateSeals: (className: string, seals: Partial<Seals>) => void;
   updateChips: (element: string, chips: Partial<Chips>) => void;
-  updateExpertChallengeMaterials: (value: number) => void;
-  updateBossMaterials: (value: number) => void;
+  updateExpertChallengeMaterials: (characterId: string, value: number) => void;
+  updateBossMaterials: (characterId: string, value: number) => void;
   updateHamsterCagePass: (value: number) => void;
   updateWEngineExpMaterials: (materials: Partial<WEngineExpMaterials>) => void;
   updateWEngineAscensionMaterials: (element: string, materials: Partial<WEngineAscensionMaterials>) => void;
@@ -31,8 +31,8 @@ export const initialResources: Resources = {
   },
   seals: {},
   chips: {},
-  expertChallengeMaterials: 0,
-  bossMaterials: 0,
+  expertChallengeMaterials: {},
+  bossMaterials: {},
   hamsterCagePass: 0,
   wEngineExpMaterials: {
     basic: 0,

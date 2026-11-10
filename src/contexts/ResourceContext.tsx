@@ -8,12 +8,21 @@ export const ResourceProvider = ({ children }: { children: ReactNode }) => {
   const [resources, setResources] = useState<Resources>(() => {
     const saved = localStorage.get<Resources>(STORAGE_KEYS.RESOURCES);
     if (!saved) return initialResources;
-    
+
     // Migrate wEngineAscensionMaterials from element-based to class-based
     const migrated = { ...initialResources, ...saved };
     if (saved.wEngineAscensionMaterials) {
       migrated.wEngineAscensionMaterials = saved.wEngineAscensionMaterials;
     }
+
+    // Migrate expertChallengeMaterials and bossMaterials from single number to per-character Record
+    if (typeof saved.expertChallengeMaterials === 'number') {
+      migrated.expertChallengeMaterials = {};
+    }
+    if (typeof saved.bossMaterials === 'number') {
+      migrated.bossMaterials = {};
+    }
+
     return migrated;
   });
 
@@ -66,12 +75,24 @@ export const ResourceProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
-  const updateExpertChallengeMaterials = (value: number) => {
-    setResources((prev) => ({ ...prev, expertChallengeMaterials: Math.max(0, value) }));
+  const updateExpertChallengeMaterials = (characterId: string, value: number) => {
+    setResources((prev) => ({
+      ...prev,
+      expertChallengeMaterials: {
+        ...prev.expertChallengeMaterials,
+        [characterId]: Math.max(0, value),
+      },
+    }));
   };
 
-  const updateBossMaterials = (value: number) => {
-    setResources((prev) => ({ ...prev, bossMaterials: Math.max(0, value) }));
+  const updateBossMaterials = (characterId: string, value: number) => {
+    setResources((prev) => ({
+      ...prev,
+      bossMaterials: {
+        ...prev.bossMaterials,
+        [characterId]: Math.max(0, value),
+      },
+    }));
   };
 
   const updateHamsterCagePass = (value: number) => {
